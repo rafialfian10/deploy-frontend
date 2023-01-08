@@ -1,0 +1,20 @@
+.footer {
+    align-self: flex-end;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    margin: 0px;
+    margin-top: 200px;
+    text-align: center;
+    background-color: orange;
+}
+
+.footer p {
+    color: white;
+}
+
+.footer img {
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+}

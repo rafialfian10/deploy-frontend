@@ -1,0 +1,135 @@
+.payment-container {
+    width: 90vw;
+    margin: auto !important;
+    margin-top: 150px !important;
+    margin-bottom: 50px !important;
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
+                -1px -1px 1px 1px rgb(209, 209, 209);
+}
+
+.content1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sub-content1 .status {
+    font-weight: bold !important;
+    text-align: right;
+}
+
+.sub-content1 .date {
+    font-weight: bold;
+}
+
+.content2 {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.info-payment {
+    width: 40%;
+    display: flex;   
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 50px !important;
+}
+
+h3.title {
+    text-align: left;
+    width: 100%;
+    margin: 0px !important;
+    margin-bottom: 5px !important;
+}
+
+p.country {
+    margin: 0px !important;
+    margin-bottom: 30px !important;
+    text-align: left !important;
+}
+
+p.status-payment {
+    width: 180px;
+    margin: 0px !important;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center !important;
+    border-radius: 5px;
+    background-color: rgb(243, 213, 223);
+    color: rgb(226, 30, 30);
+}
+
+.info-tour {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-tour .sub-info-tour {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+} 
+
+.sub-info-tour h5 {
+    font-weight: bold;
+}
+
+.sub-info-tour p {
+    font-size: 14px;
+    text-align: left;
+}
+
+.sub-info-tour .accomodation, .sub-info-tour .date, .sub-info-tour .duration, .sub-info-tour .transportation {
+    width: 100%;
+    margin-bottom: 30px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.img-payment {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.img-payment img {
+    width: 200px;
+}
+
+.img-payment p {
+    text-align: right !important;
+    margin-right: 15px !important;
+}
+
+.tables {
+    width: 100% !important;
+    margin: auto !important;
+    background-color: transparent;
+}
+
+.tables tr {
+    background-color: white !important;
+}
+
+.btn-pay {
+    margin: auto;
+    text-align: right;
+    width: 90vw;
+}
+
+.btn-pay button {
+    width: 130px;
+    height: 50px ;
+    border-radius: 5px;
+    background-color: orange ;
+    color: white;
+    font-weight: bold;
+    border: none;
+}

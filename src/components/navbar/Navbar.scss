@@ -1,0 +1,83 @@
+.background-navbar {
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    height: 80px;
+    background-image: url(../../assets/img/navbar-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 999 !important;
+}
+
+.sub-navbar {
+    position: relative;
+    width: 70vw !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center !important;
+}
+
+.login {
+    width: 100px;
+    margin: auto 10px !important;
+    text-align: center;
+    background-color: transparent;
+    color: white !important;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.register {
+    width: 100px;
+    margin: auto 10px !important;
+    text-align: center;
+    background-color: rgb(255, 166, 0);
+    color: white !important;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.photo-profile {
+    position: relative !important;
+    width: 50px;
+    border-radius: 60%;
+    overflow: hidden;
+}
+
+.dropdown {
+    width: 45px !important;
+    height: 48px !important;
+    position: absolute !important;
+    top: 7px !important;
+    right: 18px !important;
+    border-radius: 50%;
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.toggle-navbar {
+    width: 48px !important;
+    height: 48px !important;
+    position: absolute !important;
+    border-radius: 50% !important;
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.menu-dropdown {
+    height: 150px !important;
+    margin-left: -90px !important;
+    margin-top: 20px !important;
+}
+
+.menu-dropdown img {
+    margin-bottom: 10px !important;
+}
+
+.text-country {
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+    margin-left: 13px !important;
+}

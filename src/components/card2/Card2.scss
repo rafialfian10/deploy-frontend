@@ -1,0 +1,85 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.card2-title {
+    margin-bottom: 50px !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.cards2 {
+    max-width: 90vw;
+    margin: auto;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.card2 {
+    position: relative;
+    width: 30%;
+    padding: 0px;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 8px;
+    margin-bottom: 30px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+}
+
+.page {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.page p {
+    color: black;
+    font-size: 14px;
+}
+
+.card2 img {
+    height: 300px;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0px;
+}
+
+.card-title{
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.card-title:hover {
+    cursor: pointer;
+}
+
+.card-info .price {
+    margin: 0px !important;
+    color: orange;
+    text-align: left !important;
+}
+
+.card-info .country {
+    margin: 0px !important;
+    color: grey;
+    font-weight: bold;
+    text-align: right !important;
+}
+
+.palm {
+    position: absolute;
+    margin-top: -120px;
+}

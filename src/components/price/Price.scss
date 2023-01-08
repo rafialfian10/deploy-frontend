@@ -1,0 +1,79 @@
+.price-container {
+    width: 70vw !important;
+    margin: auto;
+    padding: 0px !important;
+}
+
+.line1 {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px !important;
+}
+
+.line1 .sub-line1 {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.line1 .sub-line2 {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+h5.price {
+    color: orange;
+    font-weight: bold;
+    margin: 0px !important;
+    margin-right: 5px !important;
+}
+
+h5.person {
+    font-weight: bold;
+    margin: 0px;
+}
+
+h5.value {
+    margin: 0px;
+    font-weight: bold;
+    margin: 0px 10px;
+}
+
+h5.total {
+    margin: 0px;
+    font-weight: bold;
+}
+
+.sub-line2 button {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.line1 img {
+    width: 30px;
+    height: 30px;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 0px !important;
+    margin-top: 20px;
+    text-align: right !important;
+    border: none;
+}
+.price-container button {
+    width: 100%;
+    align-items: flex-end !important;
+    width: 130px;
+    height: 50px ;
+    border-radius: 10px;
+    background-color: orange ;
+    color: white;
+    font-weight: bold;
+    border: none;
+}

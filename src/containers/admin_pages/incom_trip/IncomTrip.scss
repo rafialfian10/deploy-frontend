@@ -1,0 +1,67 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.title {
+    width: 85vw;
+    margin: auto !important;
+    margin-top: 100px !important;
+    margin-bottom: 50px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title h4 {
+    margin: 0px !important;
+    font-weight: bold;
+}
+
+.button-add {
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title button {
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: orange;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.dropdown-trip {
+    position: absolute !important;
+    margin-top: 10px;
+    top: 10px !important;
+    left: 10px !important;
+}
+
+.toggle-trip {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+
+.toggle-trip:hover {
+    background-color: transparent;
+}
+
+.dropdown-menu-trip {
+    transition: all 1s !important;
+    color: black !important;
+}
+
+.titik3 {
+    width: 25px;
+    height: 25px !important;
+}

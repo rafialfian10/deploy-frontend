@@ -1,0 +1,20 @@
+.modal-popup {
+    border: 1px solid black;
+    width: 100% !important;
+}
+
+.body-popup {
+    width: 90% !important;
+    margin: auto !important;
+}
+
+.popup {
+    display: inline !important;
+    color: black !important;
+    font-weight: normal !important;
+    text-decoration: underline !important;
+}
+
+.popup:hover {
+    cursor: pointer;
+}
