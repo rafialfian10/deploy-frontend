@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
 
 // css
 import './Card2.scss'
@@ -14,9 +15,17 @@ import palm from '../../assets/img/palm.png'
 import { API } from '../../config/api.js'
 //----------------------------------------------------------
 
-const Card2 = (props)  => {
+const Card2 = ()  => {
 
   const navigate = useNavigate()
+
+  // state search
+  const [search, setSearch] = useState("")
+
+  // handle search
+  const handleSearch = (value) => {
+      setSearch(value)
+  }
 
   const config = {
     headers: {
@@ -35,7 +44,13 @@ const Card2 = (props)  => {
           <img src={palm} alt="" className='palm' />
             {trips?.length !== 0 ? (
                     <CardGroup className="cards2">
-                       {trips?.map((trip, i) => {
+                       {trips?.filter(itemSearch => {
+                        if(search === "") {
+                          return itemSearch
+                        } else if(itemSearch.name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                            return itemSearch
+                        }
+                       }).map((trip, i) => {
                         return (
                           <div className="card2" key={i}>
                               <div className='page'>
