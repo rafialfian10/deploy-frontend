@@ -12,19 +12,11 @@ import palm from '../../assets/img/palm.png'
 
 // api
 import { API } from '../../config/api.js'
-import { useState } from 'react';
 //----------------------------------------------------------
 
 const Card2 = (props)  => {
 
   const navigate = useNavigate()
-
-  const [search, setSearch] = useState('')
-
-   // handle search
-   const handleSearch = (value) => {
-    setSearch(value)
-  }
 
   const config = {
     headers: {
@@ -43,13 +35,7 @@ const Card2 = (props)  => {
           <img src={palm} alt="" className='palm' />
             {trips?.length !== 0 ? (
                     <CardGroup className="cards2">
-                       {trips?.filter(itemSearch => {
-                          if(search === "") {
-                            return itemSearch
-                        } else if(itemSearch.name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                            return itemSearch
-                        }
-                       }).map((trip, i) => {
+                       {trips?.map((trip, i) => {
                         return (
                           <div className="card2" key={i}>
                               <div className='page'>
