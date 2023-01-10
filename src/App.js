@@ -18,12 +18,12 @@ import ModalApproved from "./containers/admin_pages/modal_approved/ModalApproved
 import AddTrip from "./containers/admin_pages/add_trip/AddTrip";
 import PaymentPending from "./containers/user_pages/payment_pending/PaymentPending";
 import AddCountry from "./containers/admin_pages/add_country/AddCountry";
+import ListCountry from "./containers/admin_pages/list_country/ListCountry";
 
 // api
 import { API, setAuthToken } from "./config/api";
-import ListCountry from "./containers/admin_pages/list_country/ListCountry";
 
-// local strorage ada maka set header axios
+// local strorage ada maka setAuthToken
 if(localStorage.token) {
   setAuthToken(localStorage.token)
 }
@@ -34,7 +34,6 @@ function App() {
   console.clear();
   console.log(state);
 
-  //
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -46,16 +45,13 @@ function App() {
     try {
       const response = await API.get('/check_auth');
 
-      // If the token incorrect
       if (response.status === 404) {
         return dispatch({
           type: 'AUTH_ERROR',
         });
       }
 
-      // Get user data
       let payload = response.data.data.user;
-      // Get token from local storage
       payload.token = localStorage.token;
 
       // Send data to useContext
