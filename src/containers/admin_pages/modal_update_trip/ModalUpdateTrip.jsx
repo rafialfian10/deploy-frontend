@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import moment from 'moment'
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import Form from "react-bootstrap/Form";
@@ -31,22 +30,6 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
         const response = await API.get(`/countries`);
         return response.data.data;
     });
-
-    // state value trip
-    // const [valueTrip, setValueTrip] = useState({
-    //     title: '',
-    //     countryId: '',
-    //     accomodation: '',
-    //     transportation: '',
-    //     eat: '',
-    //     day: '',
-    //     night: '',
-    //     datetrip: '',
-    //     price: '',
-    //     quota: '',
-    //     description: '',
-    //     image: '',
-    // })
 
     //state form
     const [form, setForm] = useState({

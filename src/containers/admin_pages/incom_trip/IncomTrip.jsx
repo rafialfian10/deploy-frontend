@@ -23,12 +23,12 @@ const IncomTrip = () => {
     // state value
     const [value, setValue] = useState()
 
+    // state id trip
+    const [tripId, setTripId] = useState()
+
     // state modal
     const [modalApproved, setModalApproved] = useState(false)
     const [modalUpdate, setModalUpdate] = useState(false)
-
-    // state id trip
-    const [tripId, setTripId] = useState()
 
     const config = {
         headers: {
@@ -101,29 +101,31 @@ const IncomTrip = () => {
                     <CardGroup className="cards2">
                        {trips?.map((trip, i) => {
                         return (
-                          <div className="card2" key={i}>
-                                <Dropdown className="d-inline mx-2 dropdown-trip">
-                                    <img src={titik3} alt="" className="titik3" />
-                                    <Dropdown.Toggle id="dropdown-autoclose-true" className="toggle-trip">
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu className="dropdown-menu-trip">
-                                    <Dropdown.Item onClick={() => {setTripId(trip.id); setModalUpdate(true); setValue(trip)}}>Edit</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => {setTripId(trip.id); handleDeleteTrip.mutate(trip.id)}}>Delete</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                             
-                              <div className='page'>
-                                {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
-                              </div>
-                              <Card.Img variant="top" src={trip.image} />
-                              <Card.Body>
-                              <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
-                              <div className="card-info">
-                              <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
-                              <Card.Text className="country">{trip.country.name}</Card.Text>
-                              </div>
-                              </Card.Body>
-                          </div>
+                            <>
+                                <div className="card2" key={i}>
+                                    <Dropdown className="d-inline mx-2 dropdown-trip">
+                                        <img src={titik3} alt="" className="titik3" />
+                                        <Dropdown.Toggle id="dropdown-autoclose-true" className="toggle-trip">
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu className="dropdown-menu-trip">
+                                        <Dropdown.Item onClick={() => {setTripId(trip.id); setModalUpdate(true); setValue(trip)}}>Edit</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => {setTripId(trip.id); setValue(trip); handleDeleteTrip.mutate(trip.id)}}>Delete</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                
+                                <div className='page'>
+                                    {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
+                                </div>
+                                <Card.Img variant="top" src={trip.image} />
+                                <Card.Body>
+                                <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
+                                <div className="card-info">
+                                <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
+                                <Card.Text className="country">{trip.country.name}</Card.Text>
+                                </div>
+                                </Card.Body>
+                                </div>
+                            </>
                         )
                       })}
                     </CardGroup>
