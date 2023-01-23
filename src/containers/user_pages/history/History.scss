@@ -1,0 +1,109 @@
+// History Trip
+.history-container {
+    margin: 30px auto !important;
+    width: 90vw;
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
+                -1px -1px 1px 1px rgb(209, 209, 209);
+
+}
+
+.title-history-trip {
+    width: 90vw;
+    text-align: left;
+    margin: auto;
+    margin-top: 100px !important;
+    margin-bottom: 0px !important;
+}
+
+.content1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sub-content1 .status {
+    font-weight: bold !important;
+    text-align: right;
+}
+
+.sub-content1 .date {
+    font-weight: bold;
+}
+
+.content2 {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.history-payment {
+    width: 40%;
+    display: flex;   
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 50px !important;
+}
+
+.history-payment .status-payment {
+    width: 180px;
+    margin: 0px !important;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center !important;
+    border-radius: 5px;
+    background-color: rgb(172, 235, 175);
+    color: rgb(81, 202, 66);
+}
+
+.history-tour {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-tour .sub-history-tour {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+} 
+
+.sub-history-tour h5 {
+    font-weight: bold;
+}
+
+.sub-history-tour p {
+    font-size: 14px;
+    text-align: left;
+}
+
+.sub-history-tour .accomodation, .sub-history-tour .date, .sub-history-tour .duration, .sub-history-tour .transportation {
+    width: 100%;
+    margin-bottom: 30px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.qr-code {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.qr-code img {
+    width: 150px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.qr-code p {
+    width: 30%;
+    text-align: center !important;
+    border: 1px solid rgb(223, 5, 186);
+    font-size: 18px;
+    margin-right: 40px !important;
+}

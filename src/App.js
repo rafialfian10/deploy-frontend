@@ -1,10 +1,10 @@
 // components
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { PrivateRouteAdmin, PrivateRouteUser } from "./components/private_route/PrivateRoute";
 import {PageNotFound} from "./components/private_route/PrivateRoute";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/userContext";
-import Navbar from "./components/navbar/Navbar";
+import Navbars from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
 // pages
@@ -29,7 +29,6 @@ if(localStorage.token) {
 }
 
 function App() {
-  // panggil user context(menyimpan data sebagai global state)
   const [state, dispatch] = useContext(UserContext);
   // console.clear();
   // console.log(state);
@@ -40,7 +39,6 @@ function App() {
     }
   }, [state])
 
-  
   const checkUser = async () => {
     try {
       const response = await API.get('/check_auth');
@@ -51,7 +49,7 @@ function App() {
         });
       }
 
-      let payload = response.data.data.user;
+      let payload = response.data.data;
       payload.token = localStorage.token;
 
       // Send data to useContext
@@ -70,8 +68,8 @@ function App() {
     }
   }, []);
   return (
-    <Router>
-      <Navbar/>
+    <>
+      <Navbars/>
       <Routes>
             {/* public */}
             <Route exact path="/" element={<Home/>}/>
@@ -97,7 +95,7 @@ function App() {
             <Route exact path="/:pageName" element={<PageNotFound/>} />
       </Routes>
       <Footer/>
-    </Router>
+    </>
   );
 }
 

@@ -1,6 +1,9 @@
 // components
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useQuery } from "react-query";
+import { UserContext } from "../../../context/userContext";
+
+// component react bootstrap
 import Moment from 'react-moment';
 import Table from "react-bootstrap/Table";
 import Popup from "../../../components/popup/Popup";
@@ -16,6 +19,8 @@ import icon from "../../../assets/img/icon.png";
 import img_payment from "../../../assets/img/img-payment.png";
 
 const Payment = () => {
+
+  const [state] = useContext(UserContext)
 
   let no = 1
 
@@ -40,7 +45,7 @@ const Payment = () => {
       {transactions?.map((transaction, i) => {
         return (
           <>
-          {localStorage.getItem("name") === transaction.user.name ? <>{transaction.status === "pending" ? <>
+          {state?.user.name === transaction.user.name ? <>{transaction.status === "pending" ? <>
             <div className="payment-container" key={i}>
             <div className="content1">
               <img src={icon} alt="" />

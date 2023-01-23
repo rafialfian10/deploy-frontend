@@ -39,7 +39,7 @@ const Paginations = ({dataPerHalaman, halamanAktif, setHalamanAktif, totalData, 
         }
         
         else if (halamanAktif > pageNumbers.length - 3) {                 
-          const sliced = pageNumbers.slice(pageNumbers.length - 4)   
+          const sliced = pageNumbers.slice(pageNumbers.length - 3)   
           tempNumberOfPages = ([1, dotsLeft, ...sliced])                        
         }
         

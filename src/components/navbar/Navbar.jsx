@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useContext } from "react";
 
+// component react bootstrap
+import { Image } from "react-bootstrap";
+
 // css
 import "./Navbar.scss";
 import "./Login.scss";
@@ -38,7 +41,6 @@ import Swal from "sweetalert2";
 import { API } from "../../config/api";
 
 const Navbars = () => {
-  const Swal = require('sweetalert2')
   const navigate = useNavigate();
 
   // Login modal login
@@ -238,11 +240,10 @@ const Navbars = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto sub-navbar">
               {/* profile navbar */}
-              {/* jika token = true maka tampilkan dropdown user, jika false tampilkan btn login & register*/}
-              {localStorage.getItem("token") ? (
+              {state.isLogin === true  ? (
                 <>
-                  {/* jika isAdmin = false maka tampilkan dropdown user, jika true maka tampilkan dropdown admin */}
-                  {localStorage.getItem("role") === "admin" ? 
+                  {/* dropdown admin */}
+                  {state.user.role === "admin" ? 
                     <Navbar.Brand>
                       <img src={photoProfile} alt=""  className="photo-profile"/>
                       <Dropdown as={ButtonGroup} className="dropdown">
@@ -262,42 +263,41 @@ const Navbars = () => {
                       </Dropdown>
                     </Navbar.Brand>
                    : 
+                    // dropdown user 
                     <Navbar.Brand>
-                   {/* looping data users */}
-                   {users?.map((user, i) => {
-                     // jika localstorage === user.name tampilkan dropdown
-                     {if(localStorage.getItem("name") === user.name) {
-                       return (
-                          <>
-                          {/* default photo */}
-                           {user.image !== "http://localhost:5000/uploads/" ?  (<img src={user.image} className="photo-profile" alt="" />) : (<img src={defaultPhoto} className="photo-profile" alt="" /> )} 
-                           {/* <img src={user.image} className="photo-profile" alt="" /> */}
-                            <Dropdown as={ButtonGroup} className="dropdown" key={i}>
+                      <>
+                        {/* photo profile */}
+                        {users?.map((user) => {
+                          {if(user.id === state?.user.id) {
+                            return (
+                              <>
+                                {user.image ? <Image src={user.image} className="photo-profile" alt="" /> : <Image src={defaultPhoto} className="photo-profile" alt=""/>}
+                              </>
+                            )
+                          }}
+                        })}
+                        <Dropdown as={ButtonGroup} className="dropdown">
                               <Dropdown.Toggle split variant="success" id="dropdown-split-basic" className="toggle-navbar"/>
                               <Dropdown.Menu className="menu-dropdown">
-                                <Dropdown.Item onClick={() => navigate(`/profile/${user.id}`)}>
+                                <Dropdown.Item onClick={() => navigate(`/profile/${state?.user.id}`)}>
                                   <img src={profile} alt="" />
                                 </Dropdown.Item>
-                                <Dropdown.Item onClick={() => navigate(`/payment/${user.id}`)}>
+                                <Dropdown.Item onClick={() => navigate(`/payment/${state?.user.id}`)}>
                                   <img src={bill} alt="" />
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={HandleLogout}>
                                   <img src={logout} alt="" />
                                 </Dropdown.Item>
                               </Dropdown.Menu>
-                            </Dropdown>
-                          </>
-                        )
-                      }}
-                    })}
+                        </Dropdown>
+                      </>
                     </Navbar.Brand>
-                    // end profile navbar
                   }
                 </>
               ) : (
                 <>
                   {/* modal register */}
-                  <Nav.Link className="register" onClick={handleShowReg}>{" "} Register </Nav.Link>
+                  <Nav.Link className="register" onClick={handleShowReg}>Register </Nav.Link>
                   <Modal show={showReg} onHide={handleCloseReg} className="modal-register" size="lg">
                     <Modal.Body className="modal-body-register">
                       <h1 className="title-register">Register</h1>

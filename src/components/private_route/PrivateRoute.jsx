@@ -1,17 +1,41 @@
+import { useContext } from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
+import { UserContext } from "../../context/userContext";
 import './PrivateRoute.scss'
 
 export const PrivateRouteAdmin = () => {
-    //  jika isAdmin di local storage == true maka navigate ke list transaction
-    return <>{!JSON.parse(localStorage.getItem("role") === "admin") ? <Navigate to="/"/> : <Outlet/>} </>
+
+    const [myContext] = useContext(UserContext)
+    return (
+        <>
+            {!localStorage.getItem("token") ? (
+                <Navigate to="/" />
+            ) : myContext?.isLogin && myContext.user?.role === "admin" ? (
+                <Outlet />
+            ) : (
+                myContext?.isLogin && myContext.user.role === "user" && <Navigate to="/" />
+            )}
+        </>
+    )
 }
-//------------------------------------
+// ------------------------------------
 
 export const PrivateRouteUser = () => {
-  
-    return <>{!JSON.parse(localStorage.getItem("role") === "user") ? <Navigate to="/"/> : <Outlet/>}</>
+
+    const [myContext] = useContext(UserContext)
+    return (
+        <>
+            {!localStorage.getItem("token") ? (
+                <Navigate to="/" />
+            ) : myContext?.isLogin && myContext.user?.role === "user" ? (
+                <Outlet />
+            ) : (
+                myContext?.isLogin && myContext.user.role === "admin" && <Navigate to="/" />
+            )}
+        </>
+    )
 }
-//--------------------------------------
+
 
 export const PageNotFound = () => {
     const params = useParams;

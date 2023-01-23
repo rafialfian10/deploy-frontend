@@ -129,8 +129,8 @@ const Price = () => {
             Swal.fire({
               icon: 'success',
               text: 'cancel transaction successfully'
-        })
-        }
+            })
+          }
         })
         navigate(`/detail/${id}`)
         
@@ -140,7 +140,6 @@ const Price = () => {
           text: 'please make payment first',
           confirmButtonText: 'Ok'
         })
-
       },
     })
 

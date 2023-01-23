@@ -1,7 +1,8 @@
 // component
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 // api
 import { API } from "../config/api";
@@ -22,10 +23,13 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+  const [myContext] = useContext(UserContext)
+
+  // jika sewaktu halaman dirender pertama kali ada local storage isAdmin maka navigate
   useEffect(() => {
-    localStorage.getItem("role") === "admin" &&
+    myContext.user.role === "admin" &&
     navigate("/list_transaction");
-  }, []);
+  });
 
   // state search
   const [search, setSearch] = useState("")

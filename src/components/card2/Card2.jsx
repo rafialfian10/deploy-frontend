@@ -13,7 +13,6 @@ import palm from '../../assets/img/palm.png'
 
 
 const Card2 = ({data, search})  => {
-  console.log(search)
 
   const navigate = useNavigate()
 

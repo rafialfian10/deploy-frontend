@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import { UserContextProvider } from './context/userContext';
+import { BrowserRouter as Router } from "react-router-dom";
 
 // css
 import './index.css';
@@ -13,13 +14,15 @@ const client = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <UserContextProvider>
-      <QueryClientProvider client={client}>
-          <App />
-      </QueryClientProvider>
+  <UserContextProvider>
+  <QueryClientProvider client={client}>
+    <React.StrictMode>
+      <Router>
+        <App />
+      </Router>
+    </React.StrictMode>
+  </QueryClientProvider>
   </UserContextProvider>
-  </React.StrictMode>
 );
 
 reportWebVitals();

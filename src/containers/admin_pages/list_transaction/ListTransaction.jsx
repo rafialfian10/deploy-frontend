@@ -17,7 +17,9 @@ import Paginations from '../../../components/pagination/Paginations';
 
 function Admin() {
 
-  const [modalApproved, setModalApproved] = useState(false)
+  let no = 1;
+
+  const [modalApproved, setModalApproved] = useState(false);
 
   
   const [dataTransaction, setDataTransaction] = useState([]);
@@ -68,7 +70,7 @@ function Admin() {
             {currentPost?.map((transaction, i) => {
               return (
                 <tr>
-                <td>{i + 1}</td>
+                <td>{no++ + indexFirstPost}</td>
                 <td>{transaction.user.name}</td>
                 <td>{transaction.trip.title}</td>
                 {/* <td>bca.jpg</td> */}
