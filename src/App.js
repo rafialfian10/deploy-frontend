@@ -31,8 +31,8 @@ if(localStorage.token) {
 function App() {
   // panggil user context(menyimpan data sebagai global state)
   const [state, dispatch] = useContext(UserContext);
-  console.clear();
-  console.log(state);
+  // console.clear();
+  // console.log(state);
 
   useEffect(() => {
     if (localStorage.token) {

@@ -33,11 +33,12 @@ const IncomTrip = () => {
     const config = {
         headers: {
         'Content-type': 'multipart/form-data',
+        'Authorization': "Bearer " + localStorage.getItem("token")
         },
      };
     
     // get data trips
-    let { data: trips, refetch:refetchTrip} = useQuery('tripsCache', async () => {
+    let { data: tripsAdmin, refetch:refetchTrip} = useQuery('tripsAdminCache', async () => {
         const response = await API.get('/trips', config);
         return response.data.data;
     });
@@ -97,9 +98,9 @@ const IncomTrip = () => {
             </div>
 
         <img src={palm} alt="" className='palm' />
-            {trips?.length !== 0 ? (
+            {tripsAdmin?.length !== 0 ? (
                     <CardGroup className="cards2">
-                       {trips?.map((trip, i) => {
+                       {tripsAdmin?.map((trip, i) => {
                         return (
                             <>
                                 <div className="card2" key={i}>

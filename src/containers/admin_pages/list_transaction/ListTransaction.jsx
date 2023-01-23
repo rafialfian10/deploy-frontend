@@ -1,7 +1,11 @@
-import ModalApproved from '../modal_approved/ModalApproved';
+// component react bootstrap
 import Table from 'react-bootstrap/Table';
-import { useState } from 'react';
-import { useQuery } from 'react-query';
+
+// component
+import { useState, useEffect } from 'react';
+import ModalApproved from '../modal_approved/ModalApproved';
+
+// api
 import { API } from '../../../config/api';
 
 // css
@@ -9,26 +13,43 @@ import './ListTransaction.scss'
 
 // image
 import search from '../../../assets/img/search.png'
+import Paginations from '../../../components/pagination/Paginations';
 
 function Admin() {
 
   const [modalApproved, setModalApproved] = useState(false)
 
-  // get data transaction
-  const config = {
-    headers: {
-    'Content-type': 'multipart/form-data',
-    },
-  };
+  
+  const [dataTransaction, setDataTransaction] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [halamanAktif, setHalamanAktif] = useState(1);
+  const [dataPerHalaman] = useState(3);
 
-  let { data: transactions} = useQuery('transactionsCaches', async () => {
-    const response = await API.get(`/transactions`, config);
-    return response.data.data;
-  });
+  useEffect(() => {
+      const fetchdata = async () => {
+          setLoading(true)
+          const response = await API.get(`/transactions`)
+          setDataTransaction(response.data.data)
+          setLoading(false)
+      }
+
+      fetchdata()
+  }, [])
+ 
+  // get current post data
+  const indexLastPost = halamanAktif * dataPerHalaman
+  const indexFirstPost = indexLastPost - dataPerHalaman 
+  const currentPost = dataTransaction.slice(indexFirstPost, indexLastPost)
+
+  if(loading) {
+    return <h4>Loading...</h4>
+  }
+
+  // function handle pagination
+  const paginate = (pageNumber) => setHalamanAktif(pageNumber)
 
   return (
     <>
-    {/* kirim props ke component ModalApproved */}
     <ModalApproved modalApproved={modalApproved} setModalApproved={setModalApproved}/>
      <h4>Incoming Transaction</h4>
      <Table striped bordered hover className="list-transaction">
@@ -44,7 +65,7 @@ function Admin() {
         </thead>
         <tbody>
           <>
-            {transactions?.map((transaction, i) => {
+            {currentPost?.map((transaction, i) => {
               return (
                 <tr>
                 <td>{i + 1}</td>
@@ -61,6 +82,7 @@ function Admin() {
           </>
         </tbody>
         </Table>
+        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction.length} paginate={paginate}/>
         </>
   );
 }

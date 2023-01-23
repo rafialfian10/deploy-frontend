@@ -169,7 +169,7 @@ const ListCountry = () => {
                   <td>{country.name}</td>
                   <td className="text-center">
                       <img src={editIcon} alt="" className="search" onClick={() => {setCountryId(country.id); setValueCountry(country); handleShowModal(true);}} />
-                      <img src={deleteIcon} alt="" className="search" onClick={() => {setCountryId(country.id)}} />
+                      {/* <img src={deleteIcon} alt="" className="search" onClick={() => {setCountryId(country.id)}} /> */}
                   </td>
                   </tr>
                 )
