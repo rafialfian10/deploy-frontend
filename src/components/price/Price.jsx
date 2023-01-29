@@ -156,7 +156,6 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
   return response.data.data;
 });
 
-console.log(detailTrips)
     
 // handler show login (jika belum login maka lempar kembali ke halaman home)
 const showLogin = () => {

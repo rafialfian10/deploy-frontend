@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // component
 import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";

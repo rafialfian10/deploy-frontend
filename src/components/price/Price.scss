@@ -65,7 +65,11 @@ h5.total {
     margin-top: 20px;
     text-align: right !important;
     border: none;
+    &:hover {
+        opacity: 0.8;
+    }
 }
+
 .price-container button {
     width: 100%;
     align-items: flex-end !important;

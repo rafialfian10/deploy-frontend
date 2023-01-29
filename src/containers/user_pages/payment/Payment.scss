@@ -10,6 +10,14 @@
                 -1px -1px 1px 1px rgb(209, 209, 209);
 }
 
+.status {
+    margin-right: 1rem;
+}
+
+.date {
+    margin-right: 1rem;
+}
+
 .content1 {
     display: flex;
     justify-content: space-between;
@@ -46,13 +54,13 @@ h3.title {
     margin-bottom: 5px !important;
 }
 
-p.country {
+.country {
     margin: 0px !important;
     margin-bottom: 30px !important;
     text-align: left !important;
 }
 
-p.status-payment {
+.status-payment {
     width: 180px;
     margin: 0px !important;
     padding: 5px;
@@ -92,20 +100,22 @@ p.status-payment {
     align-items: flex-start !important;
 }
 
-.img-payment {
-    width: 30%;
+.content-img-payment {
+    padding: 0px !important;
+    width: 30% !important;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-}
-
-.img-payment img {
-    width: 200px;
-}
-
-.img-payment p {
     text-align: right !important;
-    margin-right: 15px !important;
+    margin-right: 0px !important;
+}
+
+.img-payment {
+    width: 70% !important;
+}
+
+.text-payment {
+    margin-right: 3rem;
 }
 
 .tables {
@@ -132,4 +142,13 @@ p.status-payment {
     color: white;
     font-weight: bold;
     border: none;
+}
+
+.empty {
+    color: red;
+    margin: auto;
+    width: 100vw;
+    text-align: center;
+    margin-top: 170px !important;
+    padding-bottom: 100px !important;
 }

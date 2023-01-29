@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { useQuery, useMutation } from 'react-query';
 import {Card, CardGroup, Dropdown} from 'react-bootstrap';
+import AddCountry from "../add_country/AddCountry";
+import ModalUpdateTrip from "../modal_update_trip/ModalUpdateTrip";
 import Swal from "sweetalert2";
 
 // api
@@ -10,12 +12,10 @@ import { API } from "../../../config/api";
 
 // css
 import './IncomTrip.scss'
-import AddCountry from "../add_country/AddCountry";
 
 // image
 import palm from '../../../assets/img/palm.png'; 
 import titik3 from '../../../assets/img/titik3.png'; 
-import ModalUpdateTrip from "../modal_update_trip/ModalUpdateTrip";
 
 const IncomTrip = () => {
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ const IncomTrip = () => {
     const config = {
         headers: {
         'Content-type': 'multipart/form-data',
-        'Authorization': "Bearer " + localStorage.getItem("token")
+        Authorization: "Bearer " + localStorage.getItem("token")
         },
      };
     
@@ -66,7 +66,7 @@ const IncomTrip = () => {
                     
                 // delete trip data
                 const response = await API.delete(`/trip/${id}`, config);
-                if(response.status === 200) {
+                if(response.data.code === 200) {
                     refetchTrip()
                 }
                 console.log("Response :", response);
@@ -99,8 +99,8 @@ const IncomTrip = () => {
 
         <img src={palm} alt="" className='palm' />
             {tripsAdmin?.length !== 0 ? (
-                    <CardGroup className="cards2">
-                       {tripsAdmin?.map((trip, i) => {
+                <CardGroup className="cards2">
+                    {tripsAdmin?.map((trip, i) => {
                         return (
                             <>
                                 <div className="card2" key={i}>
@@ -119,17 +119,17 @@ const IncomTrip = () => {
                                 </div>
                                 <Card.Img variant="top" src={trip.image} />
                                 <Card.Body>
-                                <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
-                                <div className="card-info">
-                                <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
-                                <Card.Text className="country">{trip.country.name}</Card.Text>
-                                </div>
+                                    <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
+                                    <div className="card-info">
+                                        <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
+                                        <Card.Text className="country">{trip.country.name}</Card.Text>
+                                    </div>
                                 </Card.Body>
                                 </div>
                             </>
                         )
-                      })}
-                    </CardGroup>
+                    })}
+                </CardGroup>
             ) : (
             <h1> Trip not found </h1>
             )}   

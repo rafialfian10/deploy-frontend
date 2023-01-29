@@ -23,25 +23,32 @@
 }
 
 .content-profile1 img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     margin-right: 20px;
 }
 
 .content-profile1 .profile, .content-profile1 .email, .content-profile1 .phone, .content-profile1 .address {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
     margin: 10px;
 }
 
-.sub-profile .info1, .sub-email .info1, .sub-phone .info1, .sub-address ,.info1 {
+.sub-profile, .sub-email, .sub-phone, .sub-address {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-profile .info1, .sub-email .info1, .sub-phone .info1, .sub-address , .info1 {
     font-weight: bold;
     text-align: left;
     color: black;
+    font-size: 17px;
 }
 
 .sub-profile .info2, .sub-email .info2, .sub-phone .info2, .sub-address .info2 {
     text-align: left;
+    font-size: 14px;
 }
 
 .content-profile2 {
@@ -49,6 +56,10 @@
     width: 30%;
     display: flex;
     flex-direction: column;
+}
+
+.photo-profile2 {
+    border-radius: 0px !important;
 }
 
 .content-profile2 img {
@@ -70,7 +81,7 @@
 }
 
 .input-image {
-    display: none;
-    position: absolute;
+    display: none !important;
+    position: absolute !important;
 }
 

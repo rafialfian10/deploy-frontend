@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/userContext";
 
 // component react bootstrap
-import { Table } from "react-bootstrap";
+import { Table, Image, Form } from "react-bootstrap";
 import Moment from 'react-moment';
 
 // api
@@ -38,8 +38,7 @@ const History = () => {
         const response = await API.get(`/transactions`, config);
         return response.data.data;
       });
-    return (
-        
+    return (     
         <>
             {/* history trip */}
             <h1 className="title-history-trip">History Trip</h1>
@@ -51,33 +50,33 @@ const History = () => {
                             <>
                             <div className="history-container" key={i}>
                                 <div className="content1">
-                                <img src={icon} alt="" />
+                                <Image src={icon} alt="" />
                                 <div className="sub-content1">
                                     <h3 className="status">Booking</h3>
-                                    <p className="date">Saturday, 22 July 2020</p>
+                                    <Form.Text className="date">Saturday, 22 July 2020</Form.Text>
                                 </div>
                                 </div>
 
                                 <div className="content2">
                                 <div className="history-payment">
                                     <h3 className="title">{transaction.trip.title}</h3>
-                                    <p className="country">
+                                    <Form.Text className="country">
                                     {transaction.trip.country.name}
-                                    </p>
+                                    </Form.Text>
                                     {transaction.status === "success" && (
-                                    <p className="status-payment fw-bold text-light bg-succes">
+                                    <Form.Text className="status-payment fw-bold text-light bg-succes">
                                         {transaction.status}
-                                    </p>
+                                    </Form.Text>
                                     )}
                                     {transaction.status === "pending" && (
-                                    <p className="status-payment fw-bold text-light bg-warning">
+                                    <Form.Text className="status-payment fw-bold text-light bg-warning">
                                         {transaction.status}
-                                    </p>
+                                    </Form.Text>
                                     )}
                                     {transaction.status === "failed" && (
-                                    <p className="status-payment fw-bold text-light bg-danger">
+                                    <Form.Text className="status-payment fw-bold text-light bg-danger">
                                         {transaction.status}
-                                    </p>
+                                    </Form.Text>
                                     )}
                                 </div>
 
@@ -85,31 +84,31 @@ const History = () => {
                                     <div className="sub-history-tour">
                                     <div className="date">
                                         <h5>Date Trip</h5>
-                                        <p><Moment format="YYYY-MM-DD">{transaction.trip.datetrip}</Moment></p>
+                                        <Form.Text><Moment format="YYYY-MM-DD">{transaction.trip.datetrip}</Moment></Form.Text>
                                     </div>
                                     <div className="accomodation">
                                         <h5>Accomodation</h5>
-                                        <p>{transaction.trip.accomodation}</p>
+                                        <Form.Text>{transaction.trip.accomodation}</Form.Text>
                                     </div>
                                     </div>
                                     <div className="sub-info-tour">
                                     <div className="duration">
                                         <h5>Duration</h5>
-                                        <p>
+                                        <Form.Text>
                                         {transaction.trip.day} Day{" "}
                                         {transaction.trip.night} Night
-                                        </p>
+                                        </Form.Text>
                                     </div>
                                     <div className="transportation">
                                         <h5>Transportation</h5>
-                                        <p>{transaction.trip.transportation}</p>
+                                        <Form.Text>{transaction.trip.transportation}</Form.Text>
                                     </div>
                                     </div>
                                 </div>
 
                                 <div className="qr-code">
                                     <img src={qr_code} alt="" />
-                                    <p>TCK0101</p>
+                                    <Form.Text>TCK0101</Form.Text>
                                 </div>
                                 </div>
 
