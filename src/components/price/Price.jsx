@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import { useMutation } from 'react-query';
+import { useQuery, useMutation } from 'react-query'
 import Swal from "sweetalert2";
 
 // image

@@ -20,11 +20,11 @@ const Paginations = ({dataPerHalaman, halamanAktif, setHalamanAktif, totalData, 
         let dotsLeft = '... '
         let dotsRight = ' ...'
     
-        if (pageNumbers.length < 2) {
+        if (pageNumbers.length < 3) {
           tempNumberOfPages = pageNumbers
         }
     
-        else if (halamanAktif >= 1 && halamanAktif <= 2) {
+        else if (halamanAktif >= 1 && halamanAktif <= 3) {
           tempNumberOfPages = [1, 2, 3, dotsInitial, pageNumbers.length]
         }
     
@@ -33,7 +33,7 @@ const Paginations = ({dataPerHalaman, halamanAktif, setHalamanAktif, totalData, 
           tempNumberOfPages = [...sliced, dotsInitial, pageNumbers.length]
         }
     
-        else if (halamanAktif > 4 && halamanAktif < pageNumbers.length - 2) {               
+        else if (halamanAktif > 3 && halamanAktif < pageNumbers.length - 2) {               
           const sliced1 = pageNumbers.slice(halamanAktif - 2, halamanAktif)              
           const sliced2 = pageNumbers.slice(halamanAktif, halamanAktif + 1)                 
           tempNumberOfPages = ([1, dotsLeft, ...sliced1, ...sliced2, dotsRight, pageNumbers.length])
