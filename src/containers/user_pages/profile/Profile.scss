@@ -85,3 +85,10 @@
     position: absolute !important;
 }
 
+.btn-image {
+    &:hover {
+        background-color: orange ;
+        opacity: 0.8;
+    }
+}
+

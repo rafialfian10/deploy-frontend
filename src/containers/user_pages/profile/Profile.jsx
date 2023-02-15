@@ -107,7 +107,7 @@ const Profile = () => {
             <Image src={defaultPhoto} className="photo-profile2" alt="" />
           )}
           <Form.Control type="file" id="image" className="form-input input-image" name="image" onChange={handleSubmitImage.mutate}/>
-          <Button onClick={() => { document.getElementById("image").click()}}>Change Photo Profile</Button>
+          <Button onClick={() => { document.getElementById("image").click()}} className="btn-image">Change Photo Profile</Button>
         </div>
       </div>    
       <History/>

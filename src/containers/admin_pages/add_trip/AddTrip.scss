@@ -73,6 +73,10 @@ h2.title-add-trip {
     color: white;
     font-weight: bold;
     border: none;
+    &:hover {
+      background-color: orange;
+      opacity: 0.8;
+    }
 }
 
 /* Input Upload Image */

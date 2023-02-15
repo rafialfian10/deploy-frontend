@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { useQuery, useMutation } from 'react-query';
-import {Card, CardGroup, Dropdown} from 'react-bootstrap';
+import {Button, Card, CardGroup, Dropdown} from 'react-bootstrap';
 import AddCountry from "../add_country/AddCountry";
 import ModalUpdateTrip from "../modal_update_trip/ModalUpdateTrip";
 import Swal from "sweetalert2";
@@ -92,8 +92,8 @@ const IncomTrip = () => {
             <div className="title">
                 <h4>Income Trip</h4>
                 <div className="button-add">
-                    <button onClick={() => setModalApproved(true)}>Add Country</button>
-                    <button onClick={() => navigate('/add_trip')}>Add Trip</button>
+                    <Button onClick={() => setModalApproved(true)} className="btn-incom">Add Country</Button>
+                    <Button onClick={() => navigate('/add_trip')}className="btn-incom">Add Trip</Button>
                 </div>
             </div>
 
