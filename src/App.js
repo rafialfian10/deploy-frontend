@@ -66,6 +66,7 @@ function App() {
     if (localStorage.token) {
       checkUser();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 // component
 import { useState, useEffect } from 'react';
 import ModalApproved from '../modal_approved/ModalApproved';
+import Paginations from '../../../components/pagination/Paginations';
 
 // api
 import { API } from '../../../config/api';
@@ -13,7 +14,6 @@ import './ListTransaction.scss'
 
 // image
 // import search from '../../../assets/img/search.png'
-import Paginations from '../../../components/pagination/Paginations';
 
 function Admin() {
 
@@ -68,17 +68,16 @@ function Admin() {
         <tbody>
           <>
             {currentPost?.map((transaction, i) => {
-
               return (
                 <tr>
-                <td>{no++ + indexFirstPost}</td>
-                <td>{transaction.User.name}</td>
-                <td>{transaction.Trip.title}</td>
-                {/* <td>bca.jpg</td> */}
-                {transaction.status === "success" && <td className="text-success">{transaction.status}</td>}
-                {transaction.status === "pending" && <td className="text-warning">{transaction.status}</td>}
-                {transaction.status === "failed" && <td className="text-danger">{transaction.status}</td>}
-                {/* <td><img src={search} alt="" className="search" onClick={() => setModalApproved(true)} /></td> */}
+                  <td>{no++ + indexFirstPost}</td>
+                  <td>{transaction.User.name}</td>
+                  <td>{transaction.Trip.title}</td>
+                  {/* <td>bca.jpg</td> */}
+                  {transaction.status === "success" && <td className="text-success">{transaction.status}</td>}
+                  {transaction.status === "pending" && <td className="text-warning">{transaction.status}</td>}
+                  {transaction.status === "failed" && <td className="text-danger">{transaction.status}</td>}
+                  {/* <td><img src={search} alt="" className="search" onClick={() => setModalApproved(true)} /></td> */}
                 </tr>
               )
             })}
