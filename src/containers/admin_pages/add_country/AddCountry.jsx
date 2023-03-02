@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import ReactFlagsSelect from "react-flags-select";
+// import ReactFlagsSelect from "react-flags-select";
 import Modal from 'react-bootstrap/Modal';
 
 // API
@@ -65,12 +65,15 @@ const AddCountry = ({modalApproved, setModalApproved}) => {
                 // Insert trip data
                 const response = await API.post('/country', formData, config);
                 console.log("Response :", response);
-  
-                Swal.fire({
-                    text: 'Country successfully added',
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                })
+
+                if(response.status === 200) {
+                  setModalApproved(false);
+                  Swal.fire({
+                      text: 'Country successfully added',
+                      icon: 'success',
+                      confirmButtonText: 'Ok'
+                  })
+                }
   
                 navigate('/incom_trip');
               } else {
