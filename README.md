@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-Link: https://dewetour-backend-production.up.railway.app/api/v1
+Link: https://dewetour-frontend.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
