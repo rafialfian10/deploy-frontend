@@ -60,6 +60,7 @@ const Payment = () => {
     return () => {
       document.body.removeChild(scriptTag);
     };
+    
   }, []);
 
   // handle pay
