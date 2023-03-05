@@ -95,59 +95,61 @@ const Price = () => {
     const response = await API.post("/transaction", formData, config);
 
     // console.log("response beli", response)
-    const token = response.data.data.token
-    console.log(token)
-
-    window.snap.pay(token, {
-      onSuccess: function (result) {
-        // console.log(result);
-        Swal.fire({
-          text: 'Transaction success',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        })
-        navigate(`/profile/${id}`);
-        window.location.reload();
-      },
-      onPending: function (result) {
-        // console.log(result);
-        Swal.fire({
-          text: 'please make payment first',
-          confirmButtonText: 'Ok'
-        });
-        navigate(`/detail/${id}`);
-        // window.location.reload();
-      },
-      onError: function (result) {
-        // console.log(result);
-        Swal.fire({
-          icon: 'success',
-          text: 'cancel transaction successfully'
-        })
-        // Swal.fire({
-        //   title: 'Are you sure to cancel transaction?',
-        //   icon: 'warning',
-        //   showCancelButton: true,
-        //   confirmButtonColor: '#3085d6',
-        //   cancelButtonColor: '#d33',
-        //   confirmButtonText: 'Yes!'
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-            // Swal.fire({
-            //   icon: 'success',
-            //   text: 'cancel transaction successfully'
-            // })
-        //   }
-        // })
-        navigate(`/detail/${id}`);
-      },
-      onClose: function () {
-        Swal.fire({
-          text: 'cancel transaction successfully',
-          confirmButtonText: 'Ok'
-        })
-      },
-    })
+    if(response.data.code === 200) {
+      const token = response.data.data.token
+      console.log(token)
+  
+      window.snap.pay(token, {
+        onSuccess: function (result) {
+          // console.log(result);
+          Swal.fire({
+            text: 'Transaction success',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
+          navigate(`/profile/${id}`);
+          window.location.reload();
+        },
+        onPending: function (result) {
+          // console.log(result);
+          Swal.fire({
+            text: 'please make payment first',
+            confirmButtonText: 'Ok'
+          });
+          navigate(`/detail/${id}`);
+          // window.location.reload();
+        },
+        onError: function (result) {
+          // console.log(result);
+          Swal.fire({
+            icon: 'success',
+            text: 'cancel transaction successfully'
+          })
+          // Swal.fire({
+          //   title: 'Are you sure to cancel transaction?',
+          //   icon: 'warning',
+          //   showCancelButton: true,
+          //   confirmButtonColor: '#3085d6',
+          //   cancelButtonColor: '#d33',
+          //   confirmButtonText: 'Yes!'
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+              // Swal.fire({
+              //   icon: 'success',
+              //   text: 'cancel transaction successfully'
+              // })
+          //   }
+          // })
+          navigate(`/detail/${id}`);
+        },
+        onClose: function () {
+          Swal.fire({
+            text: 'cancel transaction successfully',
+            confirmButtonText: 'Ok'
+          })
+        },
+      })
+    }
 
   } catch (error) {
     console.log(error);
