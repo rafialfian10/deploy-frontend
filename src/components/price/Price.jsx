@@ -54,6 +54,7 @@ const Price = () => {
   useEffect(() => {
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"; // panngil snap middtrans
     const myMidtransClientKey = "SB-Mid-client-xBHWdiuU4aVE9vOq"; // clint key untuk custom snap
+    // const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
   
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
@@ -69,28 +70,29 @@ const Price = () => {
 
  // handle snap buy (parameter dari trip yang dilooping)
  const handleBuy = useMutation(async (trip) => {
+  // Get data from trip
+  const data = {
+    qty: number,
+    total: number * trip.price,
+    tripId: trip.id,
+  };
+
+  const formData = new FormData()
+  formData.append("qty", data.qty)
+  formData.append("total", data.total)
+  formData.append("trip_id", data.tripId)
+
+  // Configuration
+  const config = {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
   try {
-    // Get data from trip
-    const data = {
-      qty: number,
-      total: number * trip?.price,
-      tripId: trip?.id,
-    };
-
-    // Configuration
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
-
-    const formData = new FormData()
-    formData.append("qty", data?.qty)
-    formData.append("total", data?.total)
-    formData.append("trip_id", data?.tripId)
-
+  
     // Insert transaction data
     const response = await API.post("/transaction", formData, config);
 
