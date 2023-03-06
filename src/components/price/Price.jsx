@@ -89,7 +89,7 @@ const Price = () => {
     formData.append("trip_id", data.tripId)
 
     // Insert transaction data
-    const response = await API.post("/transaction", formData, config);
+    const response = await API.post("/transaction", formData);
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
