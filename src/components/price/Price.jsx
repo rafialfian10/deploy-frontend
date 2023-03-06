@@ -69,27 +69,30 @@ const Price = () => {
 
  // handle snap buy (parameter dari trip yang dilooping)
  const handleBuy = useMutation(async (trip) => {
-  // Configuration
-  const config = {
-    headers: { "Content-type": "application/json" },
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  };
-
   try {
     // Get data from trip
     const data = {
       qty: number,
-      total: number * trip.price,
-      tripId: trip.id,
+      total: number * trip?.price,
+      tripId: trip?.id,
+    };
+
+    // Configuration
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
     };
 
     const formData = new FormData()
-    formData.append("qty", data.qty)
-    formData.append("total", data.total)
-    formData.append("trip_id", data.tripId)
+    formData.append("qty", data?.qty)
+    formData.append("total", data?.total)
+    formData.append("trip_id", data?.tripId)
 
     // Insert transaction data
-    const response = await API.post("/transaction", formData);
+    const response = await API.post("/transaction", formData, config);
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
