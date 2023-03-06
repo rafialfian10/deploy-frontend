@@ -69,19 +69,18 @@ const Price = () => {
 
  // handle snap buy (parameter dari trip yang dilooping)
  const handleBuy = useMutation(async (trip) => {
+  // Configuration
+  const config = {
+    headers: { "Content-type": "application/json" },
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  };
+
   try {
     // Get data from trip
     const data = {
       qty: number,
       total: number * trip.price,
       tripId: trip.id,
-    };
-
-    // Configuration
-    const config = {
-      method: "POST",
-        headers: { "Content-type": "application/json" },
-        Authorization: "Bearer " + localStorage.getItem("token"),
     };
 
     const formData = new FormData()
