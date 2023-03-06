@@ -80,10 +80,8 @@ const Price = () => {
     // Configuration
     const config = {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
+        headers: { "Content-type": "application/json" },
         Authorization: "Bearer " + localStorage.getItem("token"),
-      },
     };
 
     const formData = new FormData()
