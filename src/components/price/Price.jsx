@@ -184,7 +184,7 @@ const showLogin = () => {
             <div className='price-container'>
                 <div className='line1'>
                     <div className='sub-line1'>
-                        <h5 className='price'>IDR. {detailTrips?.price?.toLocaleString()}</h5>
+                        <h5 className='price'>IDR. {detailTrips?.price.toLocaleString()}</h5>
                         <h5 className='person'> / Person</h5>
                     </div>
                     <div className='sub-line2'>
