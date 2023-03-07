@@ -53,7 +53,7 @@ const Price = () => {
 
   useEffect(() => {
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"; // panngil snap middtrans
-    const myMidtransClientKey = "SB-Mid-client-xBHWdiuU4aVE9vOq"; // clint key untuk custom snap
+    const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY; // clint key untuk custom snap
     // const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
   
     let scriptTag = document.createElement("script");
@@ -92,16 +92,13 @@ const Price = () => {
   };
 
   try {
-  
     // Insert transaction data
     const response = await API.post("/transaction", formData, config);
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
-      const token = response.data.data.token
-      console.log(token)
   
-      window.snap.pay(token, {
+      window.snap.pay(response.data.data.token, {
         onSuccess: function (result) {
           // console.log(result);
           Swal.fire({
@@ -152,7 +149,6 @@ const Price = () => {
         },
       })
     }
-
   } catch (error) {
     console.log(error);
   }
