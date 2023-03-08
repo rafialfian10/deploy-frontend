@@ -53,7 +53,7 @@ const Price = () => {
 
   useEffect(() => {
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js"; // panngil snap middtrans
-    const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY; // clint key untuk custom snap
+    const myMidtransClientKey = "SB-Mid-client-xBHWdiuU4aVE9vOq"; // clint key untuk custom snap
     // const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
   
     let scriptTag = document.createElement("script");
@@ -97,8 +97,10 @@ const Price = () => {
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
+      const token = response.data.data.token
+      console.log(token)
   
-      window.snap.pay(response.data.data.token, {
+      window.snap.pay(token, {
         onSuccess: function (result) {
           // console.log(result);
           Swal.fire({
@@ -149,6 +151,7 @@ const Price = () => {
         },
       })
     }
+
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +161,7 @@ const Price = () => {
 // get data trip
 let { data: detailTrips} = useQuery('tripsCache', async () => {
   const response = await API.get(`/trip/${id}`);
-  console.log(response)
+  console.log("detail trip",response)
   return response.data.data;
 });
 
