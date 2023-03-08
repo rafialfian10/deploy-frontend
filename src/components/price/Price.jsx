@@ -100,7 +100,7 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
 
   try {
     // Insert transaction data
-    const response = await API.post("/transaction", formData, config);
+    const response = await API.patch(`/transaction/${trip.id}`, formData, config);
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
