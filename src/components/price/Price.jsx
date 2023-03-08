@@ -21,11 +21,18 @@ export let price = 0
 const Price = () => {
 
   const navigate = useNavigate()
-    
+  
   let {id}= useParams()
   id = parseInt(id)
 
   const [number, setNumber] = useState(0)
+
+  // get data trip
+let { data: detailTrips} = useQuery('tripsCache', async () => {
+  const response = await API.get(`/trip/${id}`);
+  console.log("detail trip",response)
+  return response.data.data;
+});
 
   // HandlerPlus Function
   const HandlerPlus = () => {
@@ -157,14 +164,6 @@ const Price = () => {
   }
 });
 //--------------------------------------  
-
-// get data trip
-let { data: detailTrips} = useQuery('tripsCache', async () => {
-  const response = await API.get(`/trip/${id}`);
-  console.log("detail trip",response)
-  return response.data.data;
-});
-
     
 // handler show login (jika belum login maka lempar kembali ke halaman home)
 const showLogin = () => {
