@@ -25,7 +25,7 @@ function Admin() {
   const [dataTransaction, setDataTransaction] = useState([]);
   const [loading, setLoading] = useState(false);
   const [halamanAktif, setHalamanAktif] = useState(1);
-  const [dataPerHalaman] = useState(3);
+  const [dataPerHalaman] = useState(2);
 
   useEffect(() => {
       const fetchdata = async () => {
