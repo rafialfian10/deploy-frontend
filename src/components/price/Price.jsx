@@ -78,17 +78,16 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
  // handle snap buy (parameter dari trip yang dilooping)
  const handleBuy = useMutation(async (trip) => {
 
-
-  // Configuration
-  // const config = {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "multipart/form-data",
-  //     Authorization: "Bearer " + localStorage.getItem("token"),
-  //   },
-  // };
-
   try {
+      // Configuration
+      // const config = {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+      //   },
+      // };
+
     // Get data from trip
     const data = {
       qty: number,
@@ -107,7 +106,7 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
     // console.log("response beli", response)
     if(response.data.code === 200) {
       const token = response.data.data.token
-      // console.log(token)
+      console.log(token)
   
       window.snap.pay(token, {
         onSuccess: function (result) {
@@ -125,7 +124,6 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
             confirmButtonText: 'Ok'
           });
           navigate(`/detail/${id}`);
-          // window.location.reload();
         },
         onError: function (result) {
           Swal.fire({
