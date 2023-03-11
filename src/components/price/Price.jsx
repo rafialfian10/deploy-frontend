@@ -79,14 +79,14 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
  const handleBuy = useMutation(async (trip) => {
 
   try {
-      // Configuration
-      // const config = {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //     Authorization: "Bearer " + localStorage.getItem("token"),
-      //   },
-      // };
+    // Configuration
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    };
 
     // Get data from trip
     const data = {
@@ -101,7 +101,7 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
     formData.append("trip_id", data.tripId)
 
     // Insert transaction data
-    const response = await API.post(`/pay_transaction`, formData);
+    const response = await API.post(`/transaction`, formData, config);
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
