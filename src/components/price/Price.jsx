@@ -31,6 +31,7 @@ const Price = () => {
 let { data: detailTrips} = useQuery('tripsCache', async () => {
   const response = await API.get(`/trip/${id}`);
   console.log("detail trip",response)
+  
   return response.data.data;
 });
 
@@ -96,7 +97,7 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
     };
 
     const formData = new FormData()
-    formData.append("qty", data.qty)
+    formData.append("counter_qty", data.qty)
     formData.append("total", data.total)
     formData.append("trip_id", data.tripId)
 

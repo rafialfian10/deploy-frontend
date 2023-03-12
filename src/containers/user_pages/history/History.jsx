@@ -38,13 +38,14 @@ const History = () => {
         const response = await API.get(`/transactions`, config);
         return response.data.data;
       });
+
     return (     
         <>
             {/* history trip */}
             <h1 className="title-history-trip">History Trip</h1>
             <>
                 {transactions?.map((transaction, i) => {
-                {if (transaction.User.name === state?.user.name) {
+                {if (transaction.user.name === state?.user.name) {
                     {if (transaction.status === "success" || transaction.status === "failed") {
                         return (
                             <>
@@ -59,9 +60,9 @@ const History = () => {
 
                                 <div className="content2">
                                 <div className="history-payment">
-                                    <h3 className="title">{transaction.Trip.title}</h3>
+                                    <h3 className="title">{transaction.trip.title}</h3>
                                     <Form.Text className="country">
-                                    {transaction.Trip.country.name}
+                                    {transaction.trip.country.name}
                                     </Form.Text>
                                     {transaction.status === "success" && (
                                     <Form.Text className="status-payment fw-bold text-light bg-succes">
@@ -84,24 +85,24 @@ const History = () => {
                                     <div className="sub-history-tour">
                                     <div className="date">
                                         <h5>Date Trip</h5>
-                                        <Form.Text><Moment format="YYYY-MM-DD">{transaction.Trip.datetrip}</Moment></Form.Text>
+                                        <Form.Text><Moment format="YYYY-MM-DD">{transaction.trip.datetrip}</Moment></Form.Text>
                                     </div>
                                     <div className="accomodation">
                                         <h5>Accomodation</h5>
-                                        <Form.Text>{transaction.Trip.accomodation}</Form.Text>
+                                        <Form.Text>{transaction.trip.accomodation}</Form.Text>
                                     </div>
                                     </div>
                                     <div className="sub-info-tour">
                                     <div className="duration">
                                         <h5>Duration</h5>
                                         <Form.Text>
-                                        {transaction.Trip.day} Day{" "}
-                                        {transaction.Trip.night} Night
+                                        {transaction.trip.day} Day{" "}
+                                        {transaction.trip.night} Night
                                         </Form.Text>
                                     </div>
                                     <div className="transportation">
                                         <h5>Transportation</h5>
-                                        <Form.Text>{transaction.Trip.transportation}</Form.Text>
+                                        <Form.Text>{transaction.trip.transportation}</Form.Text>
                                     </div>
                                     </div>
                                 </div>
@@ -126,9 +127,9 @@ const History = () => {
                                 <tbody>
                                     <tr>
                                     <td>{no++}</td>
-                                    <td>{transaction.User.name}</td>
-                                    <td>{transaction.User.gender}</td>
-                                    <td>{transaction.User.phone}</td>
+                                    <td>{transaction.user.name}</td>
+                                    <td>{transaction.user.gender}</td>
+                                    <td>{transaction.user.phone}</td>
                                     <td className="fw-bold">Qty</td>
                                     <td className="fw-bold">: {transaction.qty}</td>
                                     </tr>
