@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 // component react bootstrap
 import Table from 'react-bootstrap/Table';
 
 // component
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ModalApproved from '../modal_approved/ModalApproved';
 import Paginations from '../../../components/pagination/Paginations';
+import { useQuery } from 'react-query';
 
 // api
 import { API } from '../../../config/api';
@@ -13,30 +15,46 @@ import { API } from '../../../config/api';
 import './ListTransaction.scss'
 
 // image
-// import search from '../../../assets/img/search.png'
+import search from '../../../assets/img/search.png'
 
 function Admin() {
 
   let no = 1;
 
+  // state modal
   const [modalApproved, setModalApproved] = useState(false);
 
-  
+  // state pagination  
   const [dataTransaction, setDataTransaction] = useState([]);
   const [loading, setLoading] = useState(false);
   const [halamanAktif, setHalamanAktif] = useState(1);
   const [dataPerHalaman] = useState(2);
 
-  useEffect(() => {
-      const fetchdata = async () => {
-          setLoading(true)
-          const response = await API.get(`/transactions`)
-          setDataTransaction(response.data.data)
-          setLoading(false)
-      }
+  // state order
+  const [currentOrder, setCurrentOrder] = useState(null);
 
-      fetchdata()
-  }, [])
+  const { data, refetch: refetchAllTransactions } = useQuery("allTransactionsCache", async () => {
+      try {
+        const response = await API.get("/transactions");
+        setDataTransaction(response.data.data)
+        setLoading(false)
+        return response.data.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  );
+
+  // useEffect(() => {
+  //     const fetchdata = async () => {
+  //         setLoading(true)
+  //         const response = await API.get(`/transactions`)
+  //         setDataTransaction(response.data.data)
+  //         setLoading(false)
+  //     }
+
+  //     fetchdata()
+  // }, [])
  
   // get current post data
   const indexLastPost = halamanAktif * dataPerHalaman
@@ -52,7 +70,7 @@ function Admin() {
 
   return (
     <>
-    <ModalApproved modalApproved={modalApproved} setModalApproved={setModalApproved}/>
+    <ModalApproved modalApproved={modalApproved} setModalApproved={setModalApproved} currentOrder={currentOrder} refetchAllTransactions={refetchAllTransactions}/>
      <h4>Incoming Transaction</h4>
      <Table striped bordered hover className="list-transaction">
         <thead>
@@ -62,7 +80,7 @@ function Admin() {
             <th>Trip</th>
             {/* <th>Bukti Transfer</th> */}
             <th>Status Payment</th>
-            {/* <th>Action</th> */}
+            <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -71,13 +89,15 @@ function Admin() {
               return (
                 <tr>
                   <td>{no++ + indexFirstPost}</td>
-                  <td>{transaction.User.name}</td>
-                  <td>{transaction.Trip.title}</td>
+                  <td>{transaction.user.name}</td>
+                  <td>{transaction.trip.title}</td>
                   {/* <td>bca.jpg</td> */}
-                  {transaction.status === "success" && <td className="text-success">{transaction.status}</td>}
                   {transaction.status === "pending" && <td className="text-warning">{transaction.status}</td>}
                   {transaction.status === "failed" && <td className="text-danger">{transaction.status}</td>}
-                  {/* <td><img src={search} alt="" className="search" onClick={() => setModalApproved(true)} /></td> */}
+                  {transaction.status === "cancel" && <td className="text-danger">{transaction.status}</td>}
+                  {transaction.status === "success" && <td className="text-success">{transaction.status}</td>}
+                  {transaction.status === "approve" && <td className="text-success">{transaction.status}</td>}
+                  <td><img src={search} alt="" className="search" onClick={() => {setModalApproved(true); setCurrentOrder(transaction)} } /></td>
                 </tr>
               )
             })}

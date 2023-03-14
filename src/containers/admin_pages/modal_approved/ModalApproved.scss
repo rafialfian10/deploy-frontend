@@ -10,6 +10,118 @@
     box-shadow: none !important;
 }
 
+.content-approved {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sub-content-approved .status {
+    font-weight: bold !important;
+    text-align: right;
+}
+
+.sub-content-approved .date-approved {
+    font-weight: bold;
+}
+
+.status-approved {
+    width: 100%;
+    margin-right: 1rem;
+}
+
+.date-approved {
+    width: 100%;
+    margin-right: 1rem;
+}
+
+.content2-approved {
+    width: 100%;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.info-payment-approved {
+    width: 50%;
+    display: flex;   
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h3.title-approved {
+    text-align: left;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+    margin: 0px !important;
+    margin-bottom: 5px !important;
+}
+
+.country-approved {
+    margin: 0px !important;
+    margin-bottom: 30px !important;
+    text-align: left !important;
+}
+
+.status-payment-approved {
+    width: 180px;
+    margin: 0px !important;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center !important;
+    border-radius: 5px;
+}
+
+.info-tour-approved {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sub-info-tour-approved {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+} 
+
+.sub-info-tour-approved h5 {
+    width: 100%;
+    font-weight: bold;
+}
+
+.sub-info-tour-approved p {
+    width: 100%;
+    font-size: 14px;
+    text-align: left;
+}
+
+.sub-info-tour-approved .accomodation-approved, .sub-info-tour-approved .date-trip-approved, .sub-info-tour-approved .duration-approved, .sub-info-tour-approved .transportation-approved {
+    width: 100%;
+    margin-bottom: 25px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.content-img-payment-approved {
+    padding: 0px !important;
+    width: 30% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right !important;
+    margin-right: 0px !important;
+}
+
+.img-payment-approved {
+    width: 100% !important;
+}
+
+.text-payment-approved {
+    margin-right: 3rem;
+}
+
 .tables {
     width: 100% !important;
 } 
@@ -24,6 +136,7 @@
 .btn-modal-approved .cancel {
     width: 130px;
     height: 50px ;
+    font-weight: bold;
     border-radius: 5px;
     background-color: rgb(250, 61, 61);
     border: none;
@@ -32,6 +145,7 @@
 .btn-modal-approved .approve {
     width: 130px;
     height: 50px ;
+    font-weight: bold;
     border-radius: 5px;
     margin-left: 20px;
     background-color: rgb(81, 255, 81);

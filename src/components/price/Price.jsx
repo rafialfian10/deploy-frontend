@@ -28,12 +28,12 @@ const Price = () => {
   const [number, setNumber] = useState(0)
 
   // get data trip
-let { data: detailTrips} = useQuery('tripsCache', async () => {
-  const response = await API.get(`/trip/${id}`);
-  console.log("detail trip",response)
-  
-  return response.data.data;
-});
+  let { data: detailTrips} = useQuery('tripsCache', async () => {
+    const response = await API.get(`/trip/${id}`);
+    console.log("detail trip",response)
+    
+    return response.data.data;
+  });
 
   // HandlerPlus Function
   const HandlerPlus = () => {
@@ -78,7 +78,6 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
 
  // handle snap buy (parameter dari trip yang dilooping)
  const handleBuy = useMutation(async (trip) => {
-
   try {
     // Configuration
     const config = {
@@ -93,12 +92,14 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
     const data = {
       qty: number,
       total: number * trip.price,
-      tripId: trip.id,
+      status: "pending",
+      tripId: detailTrips?.id,
     };
 
     const formData = new FormData()
     formData.append("counter_qty", data.qty)
     formData.append("total", data.total)
+    formData.append("status", data.status)
     formData.append("trip_id", data.tripId)
 
     // Insert transaction data
@@ -106,10 +107,8 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
 
     // console.log("response beli", response)
     if(response.data.code === 200) {
-      const token = response.data.data.token
-      console.log(token)
   
-      window.snap.pay(token, {
+      window.snap.pay(response.data.data.token, {
         onSuccess: function (result) {
           Swal.fire({
             text: 'Transaction success',
@@ -131,21 +130,6 @@ let { data: detailTrips} = useQuery('tripsCache', async () => {
             icon: 'success',
             text: 'cancel transaction successfully'
           })
-          // Swal.fire({
-          //   title: 'Are you sure to cancel transaction?',
-          //   icon: 'warning',
-          //   showCancelButton: true,
-          //   confirmButtonColor: '#3085d6',
-          //   cancelButtonColor: '#d33',
-          //   confirmButtonText: 'Yes!'
-          // }).then((result) => {
-          //   if (result.isConfirmed) {
-              // Swal.fire({
-              //   icon: 'success',
-              //   text: 'cancel transaction successfully'
-              // })
-          //   }
-          // })
           navigate(`/detail/${id}`);
         },
         onClose: function () {

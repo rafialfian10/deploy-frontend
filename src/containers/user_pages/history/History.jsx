@@ -37,7 +37,7 @@ const History = () => {
     let { data: transactions } = useQuery("transactionsCaches", async () => {
         const response = await API.get(`/transactions`, config);
         return response.data.data;
-      });
+    });
 
     return (     
         <>
@@ -131,7 +131,7 @@ const History = () => {
                                     <td>{transaction.user.gender}</td>
                                     <td>{transaction.user.phone}</td>
                                     <td className="fw-bold">Qty</td>
-                                    <td className="fw-bold">: {transaction.qty}</td>
+                                    <td className="fw-bold">: {transaction.counter_qty}</td>
                                     </tr>
                                     <tr>
                                     <td></td>

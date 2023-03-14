@@ -37,7 +37,7 @@ const Card2 = ({data, search})  => {
                         <Card.Body>
                         <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
                           <div className="card-info">
-                            <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
+                            <Card.Text className="price">Rp. {trip.price.toLocaleString()}</Card.Text>
                             <Card.Text className="country">{trip.country.name}</Card.Text>
                           </div>
                         </Card.Body>
