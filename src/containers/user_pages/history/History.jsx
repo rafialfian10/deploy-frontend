@@ -38,6 +38,7 @@ const History = () => {
         const response = await API.get(`/transactions`, config);
         return response.data.data;
     });
+    console.log(transactions)
 
     return (     
         <>
@@ -54,7 +55,7 @@ const History = () => {
                                 <Image src={icon} alt="" />
                                 <div className="sub-content1">
                                     <h3 className="status">Booking</h3>
-                                    <Form.Text className="date">Saturday, 22 July 2020</Form.Text>
+                                    <Form.Text className="date"><Moment format="DD-MMM-YYYY, h:mm:ss A">{transaction.booking_date}</Moment></Form.Text>
                                 </div>
                                 </div>
 
