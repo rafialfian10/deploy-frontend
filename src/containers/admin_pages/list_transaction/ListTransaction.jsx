@@ -94,6 +94,7 @@ function Admin() {
                   {/* <td>bca.jpg</td> */}
                   {transaction.status === "pending" && <td className="text-warning">{transaction.status}</td>}
                   {transaction.status === "failed" && <td className="text-danger">{transaction.status}</td>}
+                  {transaction.status === "reject" && <td className="text-danger">{transaction.status}</td>}
                   {transaction.status === "cancel" && <td className="text-danger">{transaction.status}</td>}
                   {transaction.status === "success" && <td className="text-success">{transaction.status}</td>}
                   {transaction.status === "approve" && <td className="text-success">{transaction.status}</td>}
