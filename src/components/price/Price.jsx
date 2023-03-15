@@ -92,15 +92,15 @@ const Price = () => {
     const data = {
       qty: number,
       total: number * trip.price,
-      status: "pending",
+      // status: "pending",
       tripId: detailTrips?.id,
     };
 
     const formData = new FormData()
     formData.append("counter_qty", data.qty)
     formData.append("total", data.total)
-    formData.append("status", data.status)
-    formData.append("trip_id", data.tripId)
+    // formData.append("status", data.status)
+    formData.append("tripId", data.tripId)
 
     // Insert transaction data
     const response = await API.post(`/transaction`, formData, config);
