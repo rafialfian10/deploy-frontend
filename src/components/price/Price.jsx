@@ -30,7 +30,7 @@ const Price = () => {
   // get data trip
   let { data: detailTrips} = useQuery('tripsCache', async () => {
     const response = await API.get(`/trip/${id}`);
-    console.log("detail trip",response)
+    // console.log("detail trip",response)
     
     return response.data.data;
   });
@@ -92,23 +92,21 @@ const Price = () => {
     const data = {
       qty: number,
       total: number * trip.price,
-      // status: "pending",
-      tripId: detailTrips?.id,
+      tripId: trip.id,
     };
 
     const formData = new FormData()
     formData.append("counter_qty", data.qty)
     formData.append("total", data.total)
-    // formData.append("status", data.status)
     formData.append("tripId", data.tripId)
 
     // Insert transaction data
     const response = await API.post(`/transaction`, formData, config);
-
+    let token = response.data.data.token
     // console.log("response beli", response)
-    if(response.data.code === 200) {
-  
-      window.snap.pay(response.data.data.token, {
+
+    if(response.data.code === 200) {  
+      window.snap.pay(token, {
         onSuccess: function (result) {
           Swal.fire({
             text: 'Transaction success',

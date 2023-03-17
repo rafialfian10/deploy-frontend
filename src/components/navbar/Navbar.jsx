@@ -81,7 +81,7 @@ const Navbars = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg" className="background-navbar container-fluid">
+      <Navbar bg="light" expand="lg" className="background-navbar container-fluid w-100">
         <Container>
           <Navbar.Brand href="/">
             <Image src={icon} alt="" />

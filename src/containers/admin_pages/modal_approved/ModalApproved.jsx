@@ -24,16 +24,18 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
 
     // handle approve order
     const handleApproveOrder = useMutation(async () => {
-        let payload = {
-            status: "approve",
-        };
         try {
+            // data status
+            let payload = {
+                status: "approve",
+            };
+
             const response = await API.patch(`/transaction-admin/${currentOrder?.id}`, payload);
             console.log(response.data);
             if (response.data.code === 200) {
                 Swal.fire({
-                title: "Transaction approved",
-                icon: "success",
+                    title: "Transaction approved",
+                    icon: "success",
                 });
                 refetchAllTransactions();
                 setModalApproved(false)
@@ -49,12 +51,13 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
             let payload = {
                 status: "reject",
             };
+
             const response = await API.patch(`/transaction-admin/${currentOrder?.id}`, payload);
             console.log(response.data);
             if (response.data.code === 200) {
                 Swal.fire("Transaction has been rejected");
-                refetchAllTransactions();
                 setModalApproved(false)
+                refetchAllTransactions();
             }
         } catch (e) {
             console.log(e);
@@ -88,11 +91,11 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
                         <h3 className="title-approved">{currentOrder?.trip.title}</h3>
                         <p className="country-approved">{currentOrder?.trip.country.name}</p>
                         <p className="status-payment-approved">
-                            {currentOrder?.status === "pending" && (<Alert variant="warning" className="d-inline-block p-1 px-3 fw-bold text-dark">Waiting Payment</Alert>)}
-                            {currentOrder?.status === "failed" && (<Alert variant="danger" className="d-inline-block p-1 px-3 fw-bold text-dark">Payment Failed</Alert>)}
-                            {currentOrder?.status === "reject" && (<Alert variant="danger" className="d-inline-block p-1 px-3 fw-bold text-dark">Transaction Rejected</Alert>)}
-                            {currentOrder?.status === "success" && (<Alert variant="warning" className="d-inline-block p-1 px-3 fw-bold text-dark">Waiting Approved</Alert>)}
-                            {currentOrder?.status === "approve" && (<Alert variant="success" className="d-inline-block p-1 px-3 fw-bold text-dark">Transaction Approved</Alert>)}
+                            {currentOrder?.status === "pending" && (<Alert variant="warning" className="d-inline-block p-1 px-3 fw-bold text-light bg-warning">Waiting Payment</Alert>)}
+                            {currentOrder?.status === "failed" && (<Alert variant="danger" className="d-inline-block p-1 px-3 fw-bold text-light bg-danger">Payment Failed</Alert>)}
+                            {currentOrder?.status === "reject" && (<Alert variant="danger" className="d-inline-block p-1 px-3 fw-bold text-light bg-danger">Transaction Rejected</Alert>)}
+                            {currentOrder?.status === "success" && (<Alert variant="warning" className="d-inline-block p-1 px-3 fw-bold text-light bg-success">Waiting Approved</Alert>)}
+                            {currentOrder?.status === "approve" && (<Alert variant="success" className="d-inline-block p-1 px-3 fw-bold text-light bg-success">Transaction Approved</Alert>)}
                         </p>
                     </div>
 

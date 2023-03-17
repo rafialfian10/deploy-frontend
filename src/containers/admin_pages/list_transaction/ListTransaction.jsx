@@ -28,7 +28,7 @@ function Admin() {
   const [dataTransaction, setDataTransaction] = useState([]);
   const [loading, setLoading] = useState(false);
   const [halamanAktif, setHalamanAktif] = useState(1);
-  const [dataPerHalaman] = useState(2);
+  const [dataPerHalaman] = useState(3);
 
   // state order
   const [currentOrder, setCurrentOrder] = useState(null);
@@ -78,7 +78,7 @@ function Admin() {
             <th>No</th>
             <th>User</th>
             <th>Trip</th>
-            {/* <th>Bukti Transfer</th> */}
+            <th>Bukti Transfer</th>
             <th>Status Payment</th>
             <th>Action</th>
             </tr>
@@ -87,11 +87,11 @@ function Admin() {
           <>
             {currentPost?.map((transaction, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{no++ + indexFirstPost}</td>
-                  <td>{transaction.user.name}</td>
-                  <td>{transaction.trip.title}</td>
-                  {/* <td>bca.jpg</td> */}
+                  <td>{transaction?.user.name}</td>
+                  <td>{transaction?.trip.title}</td>
+                  <td>bca.jpg</td>
                   {transaction?.status === "pending" && <td className="text-warning">{transaction?.status}</td>}
                   {transaction?.status === "cancel" && <td className="text-danger">{transaction?.status}</td>}
                   {transaction?.status === "reject" && <td className="text-danger">{transaction?.status}</td>}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable no-unused-vars */
