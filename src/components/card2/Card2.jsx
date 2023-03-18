@@ -33,11 +33,16 @@ const Card2 = ({data, search})  => {
                         <div className='page'>
                           {trip?.quota < 0 ? <p>{trip?.quota === 0}</p> : <p>{trip?.quota}</p>}
                         </div>
-                        <Card.Img variant="top" src={trip?.images[0]} />
+                        {trip?.images.map((img, i) => (
+                          // {console.log(img)}
+                        
+                          <Card.Img variant="top" src={img} key={i} />
+                          
+                        ))}
                         <Card.Body>
                         <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip?.id}`)}>{trip?.title}</Card.Title>
                           <div className="card-info">
-                            <Card.Text className="price">Rp. {trip?.price.toLocaleString()}</Card.Text>
+                            <Card.Text className="price">IDR. {trip?.price.toLocaleString()}</Card.Text>
                             <Card.Text className="country">{trip?.country.name}</Card.Text>
                           </div>
                         </Card.Body>
