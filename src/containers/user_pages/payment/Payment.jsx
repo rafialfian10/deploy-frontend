@@ -237,7 +237,7 @@ const Payment = () => {
                           <div className="date">
                             <h5>Date Trip</h5>
                             <Form.Text>
-                              <Moment format="YYYY-MM-DD">{transaction.trip.datetrip}</Moment>
+                              <Moment format="DD MMM YYYY, h:mm:ss A">{transaction.trip.datetrip}</Moment>
                             </Form.Text>
                           </div>
 
