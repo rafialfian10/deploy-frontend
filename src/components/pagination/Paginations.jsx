@@ -1,5 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// components
 import { useState, useEffect } from 'react'
+
+// component react bootstarp
+import { Nav } from 'react-bootstrap'
 
 // css
 import './Paginations.scss'
@@ -57,11 +61,11 @@ const Paginations = ({dataPerHalaman, halamanAktif, setHalamanAktif, totalData, 
     
         setArrOfCurrButtons(tempNumberOfPages)
         setHalamanAktif(halamanAktif)
-      }, [halamanAktif])
+      }, [halamanAktif, totalData])
 
     return (
         <>
-          <nav>
+          <Nav>
               <ul className="pagination">
                   {/* handle prev */}
                   {halamanAktif > 1 && <p className="page-link prev" onClick={() => paginate(halamanAktif - 1)}>&laquo;</p> }
@@ -75,7 +79,7 @@ const Paginations = ({dataPerHalaman, halamanAktif, setHalamanAktif, totalData, 
                   {/* handle next */}
                   {halamanAktif < pageNumbers.length && <p className="page-link next" onClick={() => paginate(halamanAktif + 1)}>&raquo;</p> }
               </ul>
-          </nav>
+          </Nav>
         </>
     )
 }

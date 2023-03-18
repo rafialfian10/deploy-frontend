@@ -162,7 +162,6 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
                 <button type="submit" className="cancel" onClick={() => {
                     RejectTransactionAlert.fire({
                         title: "Are you sure?",
-                        text: "You won't be able to revert this!",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonText: "Yes, reject this transaction!",

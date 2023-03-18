@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 // component react bootstrap
 import Table from 'react-bootstrap/Table';
+import Paginations from '../../../components/pagination/Paginations';
+import ModalApproved from '../modal_approved/ModalApproved';
 
 // component
-import { useState } from 'react';
-import ModalApproved from '../modal_approved/ModalApproved';
-import Paginations from '../../../components/pagination/Paginations';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 // api
@@ -52,7 +52,6 @@ function Admin() {
   //         setDataTransaction(response.data.data)
   //         setLoading(false)
   //     }
-
   //     fetchdata()
   // }, [])
  
@@ -105,7 +104,7 @@ function Admin() {
           </>
         </tbody>
         </Table>
-        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction?.length} paginate={paginate}/>
+        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction.length} paginate={paginate}/>
         </>
   );
 }

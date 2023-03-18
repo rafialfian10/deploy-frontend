@@ -54,7 +54,7 @@ const History = () => {
                                     <Image src={icon} alt="" />
                                     <div className="sub-content1">
                                         <h3 className="status">Booking</h3>
-                                        <Form.Text className="date"><Moment format="DD-MMM-YYYY, h:mm:ss A">{transaction?.booking_date}</Moment></Form.Text>
+                                        <Form.Text className="date"><Moment format="DD MMM YYYY, h:mm:ss A">{transaction?.booking_date}</Moment></Form.Text>
                                     </div>
                                     </div>
 
@@ -67,7 +67,7 @@ const History = () => {
                                         {transaction?.status === "success" && (<Alert className="d-inline-block p-1 px-3 fw-bold text-light bg-success">Waiting Approved</Alert>)}
                                         {transaction?.status === "approve" && (<Alert className="d-inline-block p-1 px-3 fw-bold text-light bg-success">Transaction Approved</Alert>)}
                                         {transaction?.status === "failed" && (<Alert className="d-inline-block p-1 px-3 fw-bold text-light bg-danger">Transaction Failed</Alert>)}
-                                        {transaction?.status === "reject" && (<Alert className="d-inline-block p-1 px-3 fw-bold text-light bg-danger">Transaction? Rejected</Alert>)}
+                                        {transaction?.status === "reject" && (<Alert className="d-inline-block p-1 px-3 fw-bold text-light bg-danger">Transaction Rejected</Alert>)}
                                     </div>
 
                                     <div className="history-tour">
