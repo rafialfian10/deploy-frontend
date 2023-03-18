@@ -104,7 +104,7 @@ function Admin() {
           </>
         </tbody>
         </Table>
-        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction.length} paginate={paginate}/>
+        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction?.length} paginate={paginate}/>
         </>
   );
 }
