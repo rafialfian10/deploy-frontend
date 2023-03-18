@@ -31,14 +31,14 @@ const Card2 = ({data, search})  => {
                     return (
                       <div className="card2" key={i}>
                         <div className='page'>
-                          {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
+                          {trip?.quota < 0 ? <p> {trip.quota = 0 }</p> : <p>{trip?.quota}</p>}
                         </div>
-                        <Card.Img variant="top" src={trip.images[0]} />
+                        <Card.Img variant="top" src={trip?.images[0]} />
                         <Card.Body>
-                        <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
+                        <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip?.id}`)}>{trip?.title}</Card.Title>
                           <div className="card-info">
-                            <Card.Text className="price">Rp. {trip.price.toLocaleString()}</Card.Text>
-                            <Card.Text className="country">{trip.country.name}</Card.Text>
+                            <Card.Text className="price">Rp. {trip?.price.toLocaleString()}</Card.Text>
+                            <Card.Text className="country">{trip?.country.name}</Card.Text>
                           </div>
                         </Card.Body>
                       </div>
