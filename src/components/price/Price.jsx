@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery, useMutation } from 'react-query'
 import Swal from "sweetalert2";
@@ -13,12 +13,18 @@ import './Price.scss'
 // api
 import { API } from '../../config/api'
 
+// context
+import { UserContext } from '../../context/userContext';
+
 // export ke (Payment) agar variabel dapat dimanfaatkan untuk menampung data
 export let qty = 0
 export let price = 0
 
 
 const Price = () => {
+
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch] = useContext(UserContext);
 
   const navigate = useNavigate()
   
@@ -76,89 +82,96 @@ const Price = () => {
   }, []);
   //----------------------------------------
 
- // handle snap buy (parameter dari trip yang dilooping)
- const handleBuy = useMutation(async (trip) => {
-  try {
-    // Configuration
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    };
+  // handle snap buy (parameter dari trip yang dilooping)
+  const handleBuy = useMutation(async (trip) => {
+    try {
+      // Configuration
+      const config = {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
 
-    // Get data from trip
-    const data = {
-      qty: number,
-      total: number * trip.price,
-      tripId: trip.id,
-    };
+      // Get data from trip
+      const data = {
+        qty: number,
+        total: number * trip.price,
+        tripId: trip.id,
+      };
 
-    const formData = new FormData()
-    formData.append("counter_qty", data.qty)
-    formData.append("total", data.total)
-    formData.append("tripId", data.tripId)
+      const formData = new FormData()
+      formData.append("counter_qty", data.qty)
+      formData.append("total", data.total)
+      formData.append("tripId", data.tripId)
 
-    // Insert transaction data
-    const response = await API.post(`/transaction`, formData, config);
-    let token = response.data.data.token
-    // console.log("response beli", response)
-
-    if(response.data.code === 200) {  
-      window.snap.pay(token, {
-        onSuccess: function (result) {
-          Swal.fire({
-            text: 'Transaction success',
-            icon: 'success',
-            confirmButtonText: 'Ok'
+      if(state?.user.role === "admin") {
+        Swal.fire({
+          text: 'Admin is not allowed to make transactions',
+          icon: 'warning',
+          confirmButtonText: 'Ok'
+        })
+        navigate("/incom_trip") 
+      } else {
+        // Insert transaction data
+        const response = await API.post(`/transaction`, formData, config);
+        let token = response.data.data.token
+        // console.log("response beli", response)
+  
+        if(response.data.code === 200) {  
+          window.snap.pay(token, {
+            onSuccess: function (result) {
+              Swal.fire({
+                text: 'Transaction success',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              })
+              navigate(`/profile/${id}`);
+              window.location.reload();
+            },
+            onPending: function (result) {
+              Swal.fire({
+                text: 'please make payment first',
+                confirmButtonText: 'Ok'
+              });
+              navigate(`/detail/${id}`);
+            },
+            onError: function (result) {
+              Swal.fire({
+                icon: 'success',
+                text: 'cancel transaction successfully'
+              })
+              navigate(`/detail/${id}`);
+            },
+            onClose: function () {
+              Swal.fire({
+                text: 'cancel transaction successfully',
+                confirmButtonText: 'Ok'
+              })
+            },
           })
-          navigate(`/profile/${id}`);
-          window.location.reload();
-        },
-        onPending: function (result) {
-          Swal.fire({
-            text: 'please make payment first',
-            confirmButtonText: 'Ok'
-          });
-          navigate(`/detail/${id}`);
-        },
-        onError: function (result) {
-          Swal.fire({
-            icon: 'success',
-            text: 'cancel transaction successfully'
-          })
-          navigate(`/detail/${id}`);
-        },
-        onClose: function () {
-          Swal.fire({
-            text: 'cancel transaction successfully',
-            confirmButtonText: 'Ok'
-          })
-        },
-      })
+        }
+      }
+
+    } catch (error) {
+      console.log(error);
     }
-
-  } catch (error) {
-    console.log(error);
-  }
-});
-//--------------------------------------  
+  });
+  //--------------------------------------  
     
-// handler show login (jika belum login maka lempar kembali ke halaman home)
-const showLogin = () => {
-  let token = localStorage.getItem("token")
-  if(!token) {     
-      //alert
-      Swal.fire({
+  // handler show login (jika belum login maka lempar kembali ke halaman home)
+  const showLogin = () => {
+    let token = localStorage.getItem("token")
+    if(!token) {     
+        Swal.fire({
           text: 'Please login account',
           icon: 'warning',
           confirmButtonText: 'Ok'
-      })
-      navigate("/")  
-  } 
-}
-
+        })
+        navigate("/")  
+    }
+  }
     return (
         <>
             <div className='price-container'>

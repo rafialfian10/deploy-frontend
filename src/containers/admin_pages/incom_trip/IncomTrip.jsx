@@ -1,3 +1,5 @@
+// components react bootstrap
+import {Image} from "react-bootstrap";
 // components
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
@@ -97,7 +99,7 @@ const IncomTrip = () => {
                 </div>
             </div>
 
-        <img src={palm} alt="" className='palm' />
+        <Image src={palm} alt="" className='palm' />
             {tripsAdmin?.length !== 0 ? (
                 <CardGroup className="cards2">
                     {tripsAdmin?.map((trip, i) => {
@@ -105,7 +107,7 @@ const IncomTrip = () => {
                             <>
                                 <div className="card2" key={i}>
                                     <Dropdown className="d-inline mx-2 dropdown-trip">
-                                        <img src={titik3} alt="" className="titik3" />
+                                        <Image src={titik3} alt="" className="titik3" />
                                         <Dropdown.Toggle id="dropdown-autoclose-true" className="toggle-trip">
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu className="dropdown-menu-trip">
@@ -117,7 +119,7 @@ const IncomTrip = () => {
                                 <div className='page'>
                                     {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
                                 </div>
-                                <Card.Img variant="top" src={trip.image} />
+                                <Card.Img variant="top" src={trip.images[0]} />
                                 <Card.Body>
                                     <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
                                     <div className="card-info">

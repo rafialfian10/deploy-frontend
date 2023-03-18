@@ -82,7 +82,7 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
                     <img src={icon} alt="" />
                     <div className="sub-content-approved">
                         <h3 className="status-approved">Booking</h3>
-                        <p className="date-approved"><Moment className='text-dark fw-bold' format="DD-MMM-YYYY, h:mm:ss A">{currentOrder?.booking_date}</Moment></p>
+                        <p className="date-approved"><Moment className='text-dark fw-bold' format="DD MMM YYYY, h:mm:ss A">{currentOrder?.booking_date}</Moment></p>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
                         <div className="sub-info-tour-approved">
                             <div className="date-trip-approved">
                                 <h5>Date Trip</h5>
-                                <p><Moment format="DD-MMM-YYYY, h:mm:ss A">{currentOrder?.trip.datetrip}</Moment></p>
+                                <p><Moment format="DD MMM YYYY, h:mm:ss A">{currentOrder?.trip.datetrip}</Moment></p>
                             </div>
                             <div className="accomodation-approved">
                                 <h5>Accomodation</h5>

@@ -67,14 +67,15 @@ const Description = () => {
                         <p>Date Trip</p>
                         <div>
                             <img src={date} alt=""/>
-                            <h6><Moment format="YYYY-MM-DD">{detailTrips?.datetrip}</Moment></h6>
+                            <h6><Moment format="DD MMM YYYY">{detailTrips?.datetrip}</Moment></h6>
                         </div>
                     </div>
                 </div>
 
                 <div className='desc'>
                     <h5>Description</h5>
-                    <p><strong>Lorem ipsum</strong> dolor sit amet consectetur adipisicing elit. Similique molestias voluptas fugiat veritatis quaerat provident ipsa nostrum quia et laborum vero accusamus, neque dignissimos esse voluptatem a cum tempora reprehenderit, maiores cumque, consequatur harum quas quasi! Corporis, est, natus, facilis voluptatibus dolore aut repellendus saepe pariatur illo doloribus voluptatem maiores?</p>
+                    <p>{detailTrips?.description}</p>
+                    <p>dolor sit amet consectetur adipisicing elit. Similique molestias voluptas fugiat veritatis quaerat provident ipsa nostrum quia et laborum vero accusamus, neque dignissimos esse voluptatem a cum tempora reprehenderit, maiores cumque, consequatur harum quas quasi! Corporis, est, natus, facilis voluptatibus dolore aut repellendus saepe pariatur illo doloribus voluptatem maiores?</p>
                 </div>
             </div>
         </>

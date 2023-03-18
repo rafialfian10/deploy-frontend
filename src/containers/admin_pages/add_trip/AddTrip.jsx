@@ -39,7 +39,7 @@ const AddTrip = () => {
         price: '',
         quota: '',
         description: '',
-        image: '',
+        images: [],
     })
 
     // state error
@@ -55,22 +55,45 @@ const AddTrip = () => {
         price: '',
         quota: '',
         description: '',
-        image: '',
+        images: '',
       });
 
     // function handlechange data di form
     const handleChange = (e) => {
-        setForm({
-        ...form,
-        [e.target.name]:
-            e.target.type === 'file' ? e.target.files : e.target.value, // jika type file maka  form isi file, jika value maka isi value
-        })
-
-    // buat url image
-    if (e.target.type === 'file') {
-        let url = URL.createObjectURL(e.target.files[0]);
-        setPreview(url);
-      }
+        if (e.target.name === "images") {
+        // mengambil file yang diupload pada input file
+        let filesImg = e.target.files;
+        // console.log(filesImg);
+        // console.log(filesImg.length);
+        // console.log(typeof filesImg); // tipenya object
+  
+        // Cek file upload apakah ada ? apakah formatnya sesuai (jpeg/png) ?
+        if (filesImg.length > 0) {
+            let arrImg = [];
+  
+            for (const indexImg in filesImg) {
+                if (filesImg[indexImg].type === "image/png" || filesImg[indexImg].type === "image/jpeg" || filesImg[indexImg].type === "image/jpg") {
+                // jika semua syarat terpenuhi, buatlah urlnya lalu simpan di object dengan key filesImg[indexImg]
+                arrImg.push(filesImg[indexImg]);
+                }
+            }
+  
+            setForm((prevState) => {
+                return {
+                ...prevState,
+                [e.target.name]: [...prevState.images, ...arrImg],
+                };
+            });
+        }
+        } else if (e.target.name === "price" || e.target.name === "quota") {
+            setForm((prevState) => {
+            return { ...prevState, [e.target.name]: parseInt(e.target.value) };
+            });
+        } else {
+            setForm((prevState) => {
+            return { ...prevState, [e.target.name]: e.target.value };
+            });
+        }
     };
 
     // handle submit
@@ -96,7 +119,7 @@ const AddTrip = () => {
                 price: '',
                 quota: '',
                 description: '',
-                image: '',
+                images: '',
               };
 
             // validasi form title
@@ -185,10 +208,10 @@ const AddTrip = () => {
             }
 
             // validasi form date image
-            if (form.image === "") {
-                messageError.image = "Image must be filled out";
+            if (form.images === "") {
+                messageError.images = "Image must be filled out";
             } else {
-                messageError.image = ""
+                messageError.images = ""
             }
 
             if (
@@ -204,7 +227,7 @@ const AddTrip = () => {
                 messageError.price === "" &&
                 messageError.quota === "" &&
                 messageError.description === "" &&
-                messageError.image === ""
+                messageError.images === ""
               ) {
                 // form add data trip
                 const formData = new FormData();
@@ -219,7 +242,10 @@ const AddTrip = () => {
                 formData.append('price', form.price);
                 formData.append('quota', form.quota);
                 formData.append('description', form.description);
-                formData.append('image', form.image[0]);
+                form.images.forEach((img) => {
+                    formData.append("images", img);
+                });
+                // formData.append('image', form.image[0]);
 
                 // Insert trip data
                 const response = await API.post('/trip', formData, config);
@@ -339,13 +365,13 @@ const AddTrip = () => {
                     <Form.Group className="form-group">
                     <Form.Label>Image</Form.Label>
                     <div className="img-upload">
-                        <label for="image" className="form-input">
+                        <label for="images" className="form-input">
                             <p>Attache Here</p>
                             <img src={attache} alt=""/>
                         </label>
-                        <Form.Control className="form-input" name="image" type="file" id="image" onChange={handleChange}/>
+                        <Form.Control multiple className="form-input" name="images" type="file" id="images" onChange={handleChange}/>
                     </div>
-                    {error.image && <Form.Text className="text-danger">{error.image}</Form.Text>}
+                    {error.images && <Form.Text className="text-danger">{error.images}</Form.Text>}
                     </Form.Group>
 
                     <Button variant="primary" type="submit" className='button-add-trip'>Add trip</Button>

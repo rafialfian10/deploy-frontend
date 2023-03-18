@@ -75,9 +75,9 @@ const Navbars = () => {
     return response.data.data
   });
 
-  useEffect(() => {
-    userProfile && refetchUserProfile()
-  });
+  // useEffect(() => {
+  //   userProfile && refetchUserProfile()
+  // });
 
   return (
     <>

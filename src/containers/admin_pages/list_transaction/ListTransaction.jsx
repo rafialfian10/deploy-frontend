@@ -59,7 +59,7 @@ function Admin() {
   // get current post data
   const indexLastPost = halamanAktif * dataPerHalaman
   const indexFirstPost = indexLastPost - dataPerHalaman 
-  const currentPost = dataTransaction.slice(indexFirstPost, indexLastPost)
+  const currentPost = dataTransaction?.slice(indexFirstPost, indexLastPost)
 
   if(loading) {
     return <h4>Loading...</h4>
@@ -78,7 +78,7 @@ function Admin() {
             <th>No</th>
             <th>User</th>
             <th>Trip</th>
-            <th>Bukti Transfer</th>
+            {/* <th>Bukti Transfer</th> */}
             <th>Status Payment</th>
             <th>Action</th>
             </tr>
@@ -91,7 +91,7 @@ function Admin() {
                   <td>{no++ + indexFirstPost}</td>
                   <td>{transaction?.user.name}</td>
                   <td>{transaction?.trip.title}</td>
-                  <td>bca.jpg</td>
+                  {/* <td>bca.jpg</td> */}
                   {transaction?.status === "pending" && <td className="text-warning">{transaction?.status}</td>}
                   {transaction?.status === "cancel" && <td className="text-danger">{transaction?.status}</td>}
                   {transaction?.status === "reject" && <td className="text-danger">{transaction?.status}</td>}
@@ -105,7 +105,7 @@ function Admin() {
           </>
         </tbody>
         </Table>
-        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction.length} paginate={paginate}/>
+        <Paginations dataPerHalaman={dataPerHalaman} halamanAktif={halamanAktif} setHalamanAktif={setHalamanAktif} totalData={dataTransaction?.length} paginate={paginate}/>
         </>
   );
 }
