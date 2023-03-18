@@ -2,7 +2,7 @@
 /* eslint-disable no-lone-blocks */
 // component
 import { useQuery } from "react-query";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../../context/userContext";
 
 // component react bootstrap
@@ -34,9 +34,13 @@ const History = () => {
     };
 
     // get transaction
-    let { data: transactions } = useQuery("transactionsCaches", async () => {
+    let { data: transactions, refetch: refetschAllTransaction } = useQuery("transactionsCaches", async () => {
         const response = await API.get(`/transactions`, config);
         return response.data.data;
+    });
+
+    useEffect(() => {
+        transactions && refetschAllTransaction()
     });
 
     return (     
