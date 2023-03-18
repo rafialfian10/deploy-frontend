@@ -116,9 +116,9 @@ const Payment = () => {
     }
   });
 
-  // useEffect(() => {
-  //   refetchTransactionPending()
-  // })
+  useEffect(() => {
+    refetchTransactionPending()
+  })
 
   return (
     <>
