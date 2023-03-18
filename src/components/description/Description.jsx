@@ -75,7 +75,6 @@ const Description = () => {
                 <div className='desc'>
                     <h5>Description</h5>
                     <p>{detailTrips?.description}</p>
-                    <p>dolor sit amet consectetur adipisicing elit. Similique molestias voluptas fugiat veritatis quaerat provident ipsa nostrum quia et laborum vero accusamus, neque dignissimos esse voluptatem a cum tempora reprehenderit, maiores cumque, consequatur harum quas quasi! Corporis, est, natus, facilis voluptatibus dolore aut repellendus saepe pariatur illo doloribus voluptatem maiores?</p>
                 </div>
             </div>
         </>
