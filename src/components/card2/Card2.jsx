@@ -31,13 +31,9 @@ const Card2 = ({data, search})  => {
                     return (
                       <div className="card2" key={i}>
                         <div className='page'>
-                          {trip?.quota < 0 ? <p> {trip.quota = 0 }</p> : <p>{trip?.quota}</p>}
+                          {trip?.quota < 0 ? <p>{trip?.quota === 0}</p> : <p>{trip?.quota}</p>}
                         </div>
-                        {trip?.images.map((image, i) => {
-                          return (
-                            <Card.Img variant="top" src={image[0]} key={i} />
-                          )
-                        })}
+                        <Card.Img variant="top" src={trip?.images[0]} />
                         <Card.Body>
                         <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip?.id}`)}>{trip?.title}</Card.Title>
                           <div className="card-info">
