@@ -14,7 +14,7 @@
     background-image: url(../../assets/img/view.png);
     background-repeat: no-repeat;
     background-size: cover !important;
-    background-position: center !important;    
+    background-position: center !important;   
 }
 
 .title1 {  
@@ -53,11 +53,21 @@
     margin-bottom: 50px !important;
 }
 
+.search .input-search {
+    &:focus {
+        outline: white !important;
+    }
+}
+
 .btn-search {
     width: 100px;
     background-color: orange;
     border: orange;
     color: white;
+    &:hover {
+        background-color: orange;
+        opacity: 0.8;
+    }
 }
 
 .hibiscus {

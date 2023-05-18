@@ -52,7 +52,6 @@
 }
 
 .content-profile2 {
-    position: relative;
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -64,14 +63,12 @@
 
 .content-profile2 img {
     width: 100%;
+    height: 300px;
     margin-bottom: 10px;
 }
 
-.content-profile2 button{
+.content-profile2 .btn-image{
     width: 100%;
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
     height: 50px;
     border-radius: 5px;
     background-color: orange ;

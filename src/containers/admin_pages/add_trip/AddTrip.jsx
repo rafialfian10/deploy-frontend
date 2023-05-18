@@ -365,7 +365,7 @@ const AddTrip = () => {
                     <Form.Group className="form-group">
                     <Form.Label>Image</Form.Label>
                     <div className="img-upload">
-                        <label for="images" className="form-input">
+                        <label htmlFor="images" className="form-input">
                             <p>Attache Here</p>
                             <img src={attache} alt=""/>
                         </label>

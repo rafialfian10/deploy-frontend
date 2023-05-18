@@ -1,6 +1,10 @@
+// componets
 import { useParams } from 'react-router-dom' 
 import { useQuery } from 'react-query'
 import Moment from 'react-moment';
+
+// componets resct bootstarp
+import {Image} from 'react-bootstrap'
 
 // api
 import { API } from '../../config/api'
@@ -16,8 +20,7 @@ import duration from '../../assets/img/duration.png'
 import date from '../../assets/img/date.png'
 
 const Description = () => {
-
-     // Get parameter
+    
      let {id}= useParams()
      id = parseInt(id)
  
@@ -34,7 +37,7 @@ const Description = () => {
                     <div className='accomodation'>
                         <p>Accomodation</p>
                         <div>
-                            <img src={hotel} alt=""/>
+                            <Image src={hotel} alt=""/>
                             <h6>{detailTrips?.accomodation}</h6>
                         </div>
                     </div>
@@ -42,7 +45,7 @@ const Description = () => {
                     <div className='transportation'>
                         <p>Transportation</p>
                         <div>
-                            <img src={transportation} alt=""/>
+                            <Image src={transportation} alt=""/>
                             <h6>{detailTrips?.transportation}</h6>
                         </div>
                     </div>
@@ -50,7 +53,7 @@ const Description = () => {
                     <div className='eat'>
                         <p>Eat</p>
                         <div>
-                            <img src={eat} alt=""/>
+                            <Image src={eat} alt=""/>
                             <h6>{detailTrips?.eat}</h6>
                         </div>
                     </div>
@@ -58,7 +61,7 @@ const Description = () => {
                     <div className='durations'>
                         <p>Duration</p>
                         <div>
-                            <img src={duration} alt=""/>
+                            <Image src={duration} alt=""/>
                             <h6>{detailTrips?.day} Day {detailTrips?.night} Night</h6>
                         </div>
                     </div>
@@ -66,7 +69,7 @@ const Description = () => {
                     <div className='datetrip'>
                         <p>Date Trip</p>
                         <div>
-                            <img src={date} alt=""/>
+                            <Image src={date} alt=""/>
                             <h6><Moment format="DD MMM YYYY">{detailTrips?.datetrip}</Moment></h6>
                         </div>
                     </div>

@@ -1,19 +1,19 @@
 // components react bootstrap
-import {Image} from "react-bootstrap";
+import {Button, Card, CardGroup, Dropdown, Image} from 'react-bootstrap';
+
 // components
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { useQuery, useMutation } from 'react-query';
-import {Button, Card, CardGroup, Dropdown} from 'react-bootstrap';
 import AddCountry from "../add_country/AddCountry";
 import ModalUpdateTrip from "../modal_update_trip/ModalUpdateTrip";
-import Swal from "sweetalert2";
 
 // api
 import { API } from "../../../config/api";
 
 // css
 import './IncomTrip.scss'
+import Swal from "sweetalert2";
 
 // image
 import palm from '../../../assets/img/palm.png'; 
@@ -116,17 +116,17 @@ const IncomTrip = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 
-                                <div className='page'>
-                                    {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
-                                </div>
-                                <Card.Img variant="top" src={trip.images[0]} />
-                                <Card.Body>
-                                    <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
-                                    <div className="card-info">
-                                        <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
-                                        <Card.Text className="country">{trip.country.name}</Card.Text>
+                                    <div className='page'>
+                                        {trip.quota < 0 ? <p>{trip.quota = 0 }</p>: <p>{trip.quota}</p>}
                                     </div>
-                                </Card.Body>
+                                    <Card.Img variant="top" src={trip.images[0]} />
+                                    <Card.Body>
+                                        <Card.Title className="card-title" onClick={() => navigate(`/detail/${trip.id}`)}>{trip.title}</Card.Title>
+                                        <div className="card-info">
+                                            <Card.Text className="price">{trip.price.toLocaleString()}</Card.Text>
+                                            <Card.Text className="country">{trip.country.name}</Card.Text>
+                                        </div>
+                                    </Card.Body>
                                 </div>
                             </>
                         )

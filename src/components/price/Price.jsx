@@ -85,7 +85,6 @@ const Price = () => {
   // handle snap buy (parameter dari trip yang dilooping)
   const handleBuy = useMutation(async (trip) => {
     try {
-      // Configuration
       const config = {
         method: "POST",
         headers: {
@@ -116,11 +115,11 @@ const Price = () => {
       } else {
         // Insert transaction data
         const response = await API.post(`/transaction`, formData, config);
-        let token = response.data.data.token
-        // console.log("response beli", response)
+        // let token = response.data.data.token
+        console.log("response beli", response)
   
         if(response.data.code === 200) {  
-          window.snap.pay(token, {
+          window.snap.pay(response.data.data.token, {
             onSuccess: function (result) {
               Swal.fire({
                 text: 'Transaction success',

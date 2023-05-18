@@ -122,10 +122,10 @@ const ModalApproved = ({modalApproved, setModalApproved, currentOrder, refetchAl
                         </div>
                     </div>
 
-                    <div className="content-img-payment-approved">
+                    {/* <div className="content-img-payment-approved">
                         <img className='img-payment-approved' src={img_payment} alt="" />
                         <p className='text-payment-approved'>Upload Payment Proof</p>
-                    </div>
+                    </div> */}
                 </div>
                 <Table striped bordered hover className="tables">
                     <thead>

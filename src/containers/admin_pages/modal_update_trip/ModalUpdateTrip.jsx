@@ -1,22 +1,24 @@
 /* eslint-disable no-unused-vars */
+
+// componets
 import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Swal from "sweetalert2";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
+// components react bootstrap
+import {Button, Form, Modal, FloatingLabel} from "react-bootstrap";
+
+// api
+import { API } from "../../../config/api";
 
 // css
 import './ModalUpdateTrip.scss'
+import Swal from "sweetalert2";
 
 // image
 import dropdown from '../../../assets/img/img-dropdown.png'
 import attache from '../../../assets/img/attache.png'
 
-// api
-import { API } from "../../../config/api";
 
 const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTrip}) => {
     // console.log("value props:",value)
@@ -91,8 +93,8 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
       
                 for (const indexImg in filesImg) {
                     if (filesImg[indexImg].type === "image/png" || filesImg[indexImg].type === "image/jpeg" || filesImg[indexImg].type === "image/jpg") {
-                    // jika semua syarat terpenuhi, buatlah urlnya lalu simpan di object dengan key filesImg[indexImg]
-                    arrImg.push(filesImg[indexImg]);
+                        // jika semua syarat terpenuhi, buatlah urlnya lalu simpan di object dengan key filesImg[indexImg]
+                        arrImg.push(filesImg[indexImg]);
                     }
                 }
       
@@ -116,7 +118,6 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
 
     const handleUpdateTrip = useMutation( async (e) => {
         try {
-            // konfigurasi file
             const config = {
                 headers: {
                 'Content-type': 'multipart/form-data',
@@ -268,16 +269,16 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                 // Insert trip data
                 const response = await API.patch(`/trip/${tripId}`, formData, config);
                 if(response.status === 200) {
-                    refetchTrip()
-                  }
+                    Swal.fire({
+                        text: 'Trip successfully updated',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
 
-                Swal.fire({
-                    text: 'Trip successfully updated',
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                })
-                setModalUpdate(false)
-                navigate('/incom_trip');
+                    refetchTrip()
+                    setModalUpdate(false)
+                    navigate('/incom_trip');
+                }
               } else {
                 setError(messageError)
               }
@@ -292,104 +293,104 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                     <h2 className="title-update-trip">Update Trip</h2>
                     <Form onSubmit={(e) => {e.preventDefault()
                     handleUpdateTrip.mutate(e)}}>
-                    <Form.Group className="form-group">
-                    <Form.Label>Title Trip</Form.Label>
-                    <Form.Control className="form-input" name="title" type="text" value={form.title} onChange={(e) => handleChange(e, 'title')}/>
-                    {error.title && <Form.Text className="text-danger">{error.title}</Form.Text>}
-                    </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label>Title Trip</Form.Label>
+                            <Form.Control className="form-input" name="title" type="text" value={form.title} onChange={(e) => handleChange(e, 'title')}/>
+                            {error.title && <Form.Text className="text-danger">{error.title}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group form-dropdown">
-                    <Form.Label>Country</Form.Label>
-                    <img src={dropdown} alt="" className="dropdown"/>
-                    <Form.Select aria-label="Default select example" name="countryId" value={form.countryId} className="form-input" onChange={(e) => handleChange(e, 'countryId')}>
-                        <option value=""></option>
-                        {countries?.map((country, i) => {
-                            return (
-                                <option value={country.id} key={i}>{country.name}</option>
-                            )
-                        })}
-                    </Form.Select>
-                    {error.countryId && <Form.Text className="text-danger">{error.countryId}</Form.Text>}
-                    </Form.Group>
+                        <Form.Group className="form-group form-dropdown">
+                            <Form.Label>Country</Form.Label>
+                            <img src={dropdown} alt="" className="dropdown"/>
+                            <Form.Select aria-label="Default select example" name="countryId" value={form.countryId} className="form-input" onChange={(e) => handleChange(e, 'countryId')}>
+                                <option value=""></option>
+                                {countries?.map((country, i) => {
+                                    return (
+                                        <option value={country.id} key={i}>{country.name}</option>
+                                    )
+                                })}
+                            </Form.Select>
+                            {error.countryId && <Form.Text className="text-danger">{error.countryId}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group">
-                    <Form.Label>Accomodation</Form.Label>
-                    <Form.Control className="form-input" name="accomodation" type="text" value={form.accomodation}  onChange={(e) => handleChange(e, 'accomodation')}/>
-                    {error.accomodation && <Form.Text className="text-danger">{error.accomodation}</Form.Text>}
-                    </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label>Accomodation</Form.Label>
+                            <Form.Control className="form-input" name="accomodation" type="text" value={form.accomodation}  onChange={(e) => handleChange(e, 'accomodation')}/>
+                            {error.accomodation && <Form.Text className="text-danger">{error.accomodation}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group">
-                    <Form.Label>Transportation</Form.Label>
-                    <Form.Control className="form-input" name="transportation" type="text" value={form.transportation}  onChange={(e) => handleChange(e, 'transportation')}/>
-                    {error.transportation && <Form.Text className="text-danger">{error.transportation}</Form.Text>}
-                    </Form.Group>
+                        <Form.Group className="form-group">
+                            <Form.Label>Transportation</Form.Label>
+                            <Form.Control className="form-input" name="transportation" type="text" value={form.transportation}  onChange={(e) => handleChange(e, 'transportation')}/>
+                            {error.transportation && <Form.Text className="text-danger">{error.transportation}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group">
-                    <Form.Label>Eat</Form.Label>
-                    <Form.Control className="form-input" name="eat" type="text" value={form.eat} onChange={(e) => handleChange(e, 'eat')}/>
-                    {error.eat && <Form.Text className="text-danger">{error.eat}</Form.Text>}
-                    </Form.Group>
+                            <Form.Group className="form-group">
+                            <Form.Label>Eat</Form.Label>
+                            <Form.Control className="form-input" name="eat" type="text" value={form.eat} onChange={(e) => handleChange(e, 'eat')}/>
+                            {error.eat && <Form.Text className="text-danger">{error.eat}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group">
-                    <Form.Label>Duration</Form.Label>
-                    <div className="duration">
-                        <div className="day-content">
-                            <div className='sub-day-content'>
-                                <Form.Control className="form-input day" name="day" type="number" value={form.day} onChange={(e) => handleChange(e, 'day')}/>
-                                <Form.Label className="label-day">Day</Form.Label>
+                        <Form.Group className="form-group">
+                            <Form.Label>Duration</Form.Label>
+                            <div className="duration">
+                                <div className="day-content">
+                                    <div className='sub-day-content'>
+                                        <Form.Control className="form-input day" name="day" type="number" value={form.day} onChange={(e) => handleChange(e, 'day')}/>
+                                        <Form.Label className="label-day">Day</Form.Label>
+                                    </div>
+                                    {error.day && <Form.Text className="text-danger">{error.day}</Form.Text>}
+                                </div>
+
+                                <div className="night-content">
+                                    <div className='sub-night-content'>
+                                        <Form.Control className="form-input night" name="night" type="number" value={form.night} onChange={(e) => handleChange(e, 'night')}/>
+                                        <Form.Label className="label-night">Night</Form.Label>
+                                    </div>
+                                    {error.night && <Form.Text className="text-danger">{error.night}</Form.Text>}
+                                </div>
                             </div>
-                            {error.day && <Form.Text className="text-danger">{error.day}</Form.Text>}
-                        </div>
+                        </Form.Group>
 
-                        <div className="night-content">
-                            <div className='sub-night-content'>
-                                <Form.Control className="form-input night" name="night" type="number" value={form.night} onChange={(e) => handleChange(e, 'night')}/>
-                                <Form.Label className="label-night">Night</Form.Label>
+                        <Form.Group className="form-group">
+                            <Form.Label>Date Trip</Form.Label>
+                            <Form.Control className="form-input" name="datetrip" type="date" value={form.datetrip} onChange={(e) => handleChange(e, 'datetrip')}/>
+                            {error.datetrip && <Form.Text className="text-danger">{error.datetrip}</Form.Text>}
+                        </Form.Group>
+
+                        <Form.Group className="form-group">
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control className="form-input" name="price" type="text" value={form.price} onChange={(e) => handleChange(e, 'price')}/>
+                            {error.price && <Form.Text className="text-danger">{error.price}</Form.Text>}
+                        </Form.Group>
+
+                        <Form.Group className="form-group">
+                            <Form.Label>Quota</Form.Label>
+                            <Form.Control className="form-input" name="quota" type="number" value={form.quota}  onChange={(e) => handleChange(e, 'quota')}/>
+                            {error.quota && <Form.Text className="text-danger">{error.quota}</Form.Text>}
+                        </Form.Group>
+
+                        <Form.Group className="form-group">
+                            <Form.Label>Description</Form.Label>
+                            <FloatingLabel controlId="floatingTextarea2">
+                                <Form.Control as="textarea" className="form-input" name="description" value={form.description}  style={{ height: '100px' }} onChange={(e) => handleChange(e, 'description')}/>
+                                {error.description && <Form.Text className="text-danger">{error.description}</Form.Text>}
+                            </FloatingLabel>
+                        </Form.Group>
+
+                        <Form.Group className="form-group">
+                            <Form.Label>Image</Form.Label>
+                            <div className="img-upload">
+                                <label htmlFor="images" className="form-input">
+                                    <p>Attache Here</p>
+                                    <img src={attache} alt=""/>
+                                </label>
+                                <Form.Control multiple className="form-input" id="images" name="images" type="file" onChange={(e) => handleChange(e, 'images')}/>
                             </div>
-                            {error.night && <Form.Text className="text-danger">{error.night}</Form.Text>}
-                        </div>
-                    </div>
-                    </Form.Group>
+                            {error.images && <Form.Text className="text-danger">{error.images}</Form.Text>}
+                        </Form.Group>
 
-                    <Form.Group className="form-group">
-                    <Form.Label>Date Trip</Form.Label>
-                    <Form.Control className="form-input" name="datetrip" type="date" value={form.datetrip} onChange={(e) => handleChange(e, 'datetrip')}/>
-                    {error.datetrip && <Form.Text className="text-danger">{error.datetrip}</Form.Text>}
-                    </Form.Group>
-
-                    <Form.Group className="form-group">
-                    <Form.Label>Price</Form.Label>
-                    <Form.Control className="form-input" name="price" type="text" value={form.price} onChange={(e) => handleChange(e, 'price')}/>
-                    {error.price && <Form.Text className="text-danger">{error.price}</Form.Text>}
-                    </Form.Group>
-
-                    <Form.Group className="form-group">
-                    <Form.Label>Quota</Form.Label>
-                    <Form.Control className="form-input" name="quota" type="number" value={form.quota}  onChange={(e) => handleChange(e, 'quota')}/>
-                    {error.quota && <Form.Text className="text-danger">{error.quota}</Form.Text>}
-                    </Form.Group>
-
-                    <Form.Group className="form-group">
-                    <Form.Label>Description</Form.Label>
-                    <FloatingLabel controlId="floatingTextarea2">
-                        <Form.Control as="textarea" className="form-input" name="description" value={form.description}  style={{ height: '100px' }} onChange={(e) => handleChange(e, 'description')}/>
-                        {error.description && <Form.Text className="text-danger">{error.description}</Form.Text>}
-                    </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group className="form-group">
-                    <Form.Label>Image</Form.Label>
-                    <div className="img-upload">
-                        <label for="images" className="form-input">
-                            <p>Attache Here</p>
-                            <img src={attache} alt=""/>
-                        </label>
-                        <Form.Control multiple className="form-input" id="images" name="images" type="file" onChange={(e) => handleChange(e, 'images')}/>
-                    </div>
-                    {error.images && <Form.Text className="text-danger">{error.images}</Form.Text>}
-                    </Form.Group>
-
-                    <Button variant="primary" type="submit" className='button-add-trip'>Update trip</Button>
+                        <Button variant="primary" type="submit" className='button-add-trip'>Update trip</Button>
                     </Form>
                 </Modal.Body>
             </Modal>

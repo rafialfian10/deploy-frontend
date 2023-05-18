@@ -18,8 +18,8 @@ const Jumbotron = ({search, handleSearch}) => {
                 <h1 className="title2">your amazing city together</h1>
                 <p>Find great place to holiday</p>
                 <InputGroup className="search" size="xs">
-                <Form.Control aria-label="Recipient's username" placeholder="Search..." aria-describedby="basic-addon2" onChange={(value) => handleSearch(value)} value={search}/>
-                <Button variant="outline-secondary" id="button-addon2" className="btn-search">Search</Button>
+                    <Form.Control className="input-search" aria-label="Recipient's username" placeholder="Search..." aria-describedby="basic-addon2" onChange={(value) => handleSearch(value)} value={search}/>
+                    <Button id="button-addon2" className="btn-search">Search</Button>
                 </InputGroup>
                 <img src={hibiskus} alt="" className='hibiscus' />
             </div>
