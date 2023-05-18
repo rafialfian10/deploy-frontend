@@ -306,7 +306,7 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                                 <option value=""></option>
                                 {countries?.map((country, i) => {
                                     return (
-                                        <option value={country.id} key={i}>{country.name}</option>
+                                        <option value={country?.id} key={i}>{country?.name}</option>
                                     )
                                 })}
                             </Form.Select>

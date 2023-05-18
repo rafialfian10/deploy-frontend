@@ -80,7 +80,6 @@ const Price = () => {
       document.body.removeChild(scriptTag);
     };
   }, []);
-  //----------------------------------------
 
   // handle snap buy (parameter dari trip yang dilooping)
   const handleBuy = useMutation(async (trip) => {
@@ -111,12 +110,13 @@ const Price = () => {
           icon: 'warning',
           confirmButtonText: 'Ok'
         })
-        navigate("/incom_trip") 
+
+        navigate("/incom_trip")
+         
       } else {
         // Insert transaction data
         const response = await API.post(`/transaction`, formData, config);
-        // let token = response.data.data.token
-        console.log("response beli", response)
+        // console.log("response", response)
   
         if(response.data.code === 200) {  
           window.snap.pay(response.data.data.token, {
