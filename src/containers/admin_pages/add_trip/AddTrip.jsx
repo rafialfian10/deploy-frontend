@@ -185,7 +185,7 @@ const AddTrip = () => {
                 messageError.price = "Price must be filled out";
             } else if (isNaN(form.price)) {
                 messageError.price = "Price must be a number";
-            } else if (parseFloat(form.price) < 0) {
+            } else if (parseInt(form.price) < 0) {
                 messageError.price = "Price can't be less than 0";
             } else {
                 messageError.price = "";
@@ -196,7 +196,7 @@ const AddTrip = () => {
                 messageError.quota = "Quota must be filled out";
             } else if (isNaN(form.quota)) {
                 messageError.quota = "Quota must be a number";
-            } else if (parseFloat(form.quota) < 0) {
+            } else if (parseInt(form.quota) < 0) {
                 messageError.quota = "Quota can't be less than 0";
             } else {
                 messageError.quota = "";
