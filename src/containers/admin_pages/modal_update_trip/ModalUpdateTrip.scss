@@ -77,12 +77,13 @@ h2.title-update-trip {
 /* Input Upload Image */
 .img-upload {
     height: 30px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     border-radius: 5px;
-  }
+}
   
-  .img-upload label {
+  .img-upload .label-upload {
     width: 30%;
     height: 40px;
     display: flex;
@@ -99,7 +100,8 @@ h2.title-update-trip {
     display: none;
   }
   
-  .img-upload p {
+  .img-upload .text-upload {
+    margin: 0px;
     padding: 5px;
     padding-left: 10px;
     text-align: left;
@@ -108,17 +110,21 @@ h2.title-update-trip {
     border-radius: 5px;
   }
   
-  .img-upload p:hover {
+  .img-upload .text-upload:hover {
     cursor: pointer;
   }
+
+  .img-upload .label-upload {
+    margin-top: 15px;
+  }
   
-  .img-upload label img {
+  .img-upload .label-upload .image-upload {
     margin-right: 10px;
     width: 18px;
     height: 18px;
   }
   
-  .img-upload label img:hover {
+  .img-upload .label-upload .image-upload:hover {
     cursor: pointer;
   }
   /* End input upload image */

@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 // components react bootstrap
-import {Button, Form, Modal, FloatingLabel} from "react-bootstrap";
+import {Button, Form, Modal, FloatingLabel, FormText, FormLabel, Image} from "react-bootstrap";
 
 // api
 import { API } from "../../../config/api";
@@ -50,20 +50,33 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
     })
 
     useEffect(() => {
-        setForm({
-            title: value?.title,
-            countryId: value?.country.id,
-            accomodation: value?.accomodation,
-            transportation: value?.transportation,
-            eat: value?.eat,
-            day: value?.day,
-            night: value?.night,
-            datetrip: value?.datetrip,
-            price: value?.price,
-            quota: value?.quota,
-            description: value?.description,
-            images: value?.images,
-        })
+        setForm((prevForm) => ({
+            ...prevForm,
+            title: value?.title || "",
+            countryId: value?.country.id || "",
+            accomodation: value?.accomodation || "",
+            transportation: value?.transportation || "",
+            eat: value?.eat || "",
+            day: value?.day || "",
+            night: value?.night || "",
+            datetrip: value?.datetrip || "",
+            price: value?.price || "",
+            quota: value?.quota || "",
+            description: value?.description || "",
+            images: value?.images || "",
+        }));
+
+        if (value?.datetrip) {
+            const date = new Date(value.datetrip);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            const formattedDate = `${year}-${month}-${day}`;
+            setForm((prevForm) => ({
+              ...prevForm,
+              datetrip: formattedDate,
+            }));
+        }
     }, [value])
 
     // state error
@@ -107,7 +120,7 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
             }
         } else if (e.target.name === "price" || e.target.name === "quota") {
             setForm((prevState) => {
-                return { ...prevState, [e.target.name]: parseInt(e.target.value) };
+                return { ...prevState, [e.target.name]: e.target.value.toString().trim() };
             });
         } else {
             setForm((prevState) => {
@@ -203,19 +216,23 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
             // validasi form price
             if (form.price === "") {
                 messageError.price = "Price must be filled out";
-            } else if (form.price < 0) {
-                messageError.price = "can't be less than 0"
+            } else if (isNaN(form.price)) {
+                messageError.price = "Price must be a number";
+            } else if (parseFloat(form.price) < 0) {
+                messageError.price = "Price can't be less than 0";
             } else {
-                messageError.price = ""
+                messageError.price = "";
             }
 
             // validasi form quota
             if (form.quota === "") {
                 messageError.quota = "Quota must be filled out";
-            } else if (parseInt(form.quota) < 1) {
-                messageError.quota = "can't be less than 1"
+            } else if (isNaN(form.quota)) {
+                messageError.quota = "Quota must be a number";
+            } else if (parseFloat(form.quota) < 0) {
+                messageError.quota = "Quota can't be less than 0";
             } else {
-                messageError.quota = ""
+                messageError.quota = "";
             }
 
             // validasi form date description
@@ -226,7 +243,7 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
             }
 
             // validasi form date image
-            if (form.images === "") {
+            if (!form.images || form.images.length === 0) {
                 messageError.images = "Image must be filled out";
             } else {
                 messageError.images = ""
@@ -296,12 +313,12 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                         <Form.Group className="form-group">
                             <Form.Label>Title Trip</Form.Label>
                             <Form.Control className="form-input" name="title" type="text" value={form.title} onChange={(e) => handleChange(e, 'title')}/>
-                            {error.title && <Form.Text className="text-danger">{error.title}</Form.Text>}
+                            {error.title && !form.title.trim() && <Form.Text className="text-danger">{error.title}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group form-dropdown">
                             <Form.Label>Country</Form.Label>
-                            <img src={dropdown} alt="" className="dropdown"/>
+                            <Image src={dropdown} alt="" className="dropdown"/>
                             <Form.Select aria-label="Default select example" name="countryId" value={form.countryId} className="form-input" onChange={(e) => handleChange(e, 'countryId')}>
                                 <option value=""></option>
                                 {countries?.map((country, i) => {
@@ -310,25 +327,25 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                                     )
                                 })}
                             </Form.Select>
-                            {error.countryId && <Form.Text className="text-danger">{error.countryId}</Form.Text>}
+                            {error.countryId && !form.countryId.trim() && <Form.Text className="text-danger">{error.countryId}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Accomodation</Form.Label>
                             <Form.Control className="form-input" name="accomodation" type="text" value={form.accomodation}  onChange={(e) => handleChange(e, 'accomodation')}/>
-                            {error.accomodation && <Form.Text className="text-danger">{error.accomodation}</Form.Text>}
+                            {error.accomodation && !form.accomodation.trim() && <Form.Text className="text-danger">{error.accomodation}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Transportation</Form.Label>
                             <Form.Control className="form-input" name="transportation" type="text" value={form.transportation}  onChange={(e) => handleChange(e, 'transportation')}/>
-                            {error.transportation && <Form.Text className="text-danger">{error.transportation}</Form.Text>}
+                            {error.transportation && !form.transportation.trim() && <Form.Text className="text-danger">{error.transportation}</Form.Text>}
                         </Form.Group>
 
                             <Form.Group className="form-group">
                             <Form.Label>Eat</Form.Label>
                             <Form.Control className="form-input" name="eat" type="text" value={form.eat} onChange={(e) => handleChange(e, 'eat')}/>
-                            {error.eat && <Form.Text className="text-danger">{error.eat}</Form.Text>}
+                            {error.eat && !form.eat.trim() && <Form.Text className="text-danger">{error.eat}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
@@ -339,7 +356,7 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                                         <Form.Control className="form-input day" name="day" type="number" value={form.day} onChange={(e) => handleChange(e, 'day')}/>
                                         <Form.Label className="label-day">Day</Form.Label>
                                     </div>
-                                    {error.day && <Form.Text className="text-danger">{error.day}</Form.Text>}
+                                    {error.day && !form.day.trim() && <Form.Text className="text-danger">{error.day}</Form.Text>}
                                 </div>
 
                                 <div className="night-content">
@@ -347,7 +364,7 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                                         <Form.Control className="form-input night" name="night" type="number" value={form.night} onChange={(e) => handleChange(e, 'night')}/>
                                         <Form.Label className="label-night">Night</Form.Label>
                                     </div>
-                                    {error.night && <Form.Text className="text-danger">{error.night}</Form.Text>}
+                                    {error.night && !form.night.trim() && <Form.Text className="text-danger">{error.night}</Form.Text>}
                                 </div>
                             </div>
                         </Form.Group>
@@ -355,39 +372,39 @@ const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTri
                         <Form.Group className="form-group">
                             <Form.Label>Date Trip</Form.Label>
                             <Form.Control className="form-input" name="datetrip" type="date" value={form.datetrip} onChange={(e) => handleChange(e, 'datetrip')}/>
-                            {error.datetrip && <Form.Text className="text-danger">{error.datetrip}</Form.Text>}
+                            {error.datetrip && !form.datetrip.trim() && <Form.Text className="text-danger">{error.datetrip}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Price</Form.Label>
                             <Form.Control className="form-input" name="price" type="text" value={form.price} onChange={(e) => handleChange(e, 'price')}/>
-                            {error.price && <Form.Text className="text-danger">{error.price}</Form.Text>}
+                            {error.price && !form.price.trim() && <Form.Text className="text-danger">{error.price}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Quota</Form.Label>
                             <Form.Control className="form-input" name="quota" type="number" value={form.quota}  onChange={(e) => handleChange(e, 'quota')}/>
-                            {error.quota && <Form.Text className="text-danger">{error.quota}</Form.Text>}
+                            {error.quota && !form.quota.trim() && <Form.Text className="text-danger">{error.quota}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Description</Form.Label>
                             <FloatingLabel controlId="floatingTextarea2">
                                 <Form.Control as="textarea" className="form-input" name="description" value={form.description}  style={{ height: '100px' }} onChange={(e) => handleChange(e, 'description')}/>
-                                {error.description && <Form.Text className="text-danger">{error.description}</Form.Text>}
+                                {error.description && !form.description.trim() && <Form.Text className="text-danger">{error.description}</Form.Text>}
                             </FloatingLabel>
                         </Form.Group>
 
                         <Form.Group className="form-group">
                             <Form.Label>Image</Form.Label>
                             <div className="img-upload">
-                                <label htmlFor="images" className="form-input">
-                                    <p>Attache Here</p>
-                                    <img src={attache} alt=""/>
-                                </label>
+                                <Form.Label htmlFor="images" className="form-input label-upload">
+                                    <Form.Text className="text-upload">Attache Here</Form.Text>
+                                    <Image src={attache} alt="" className="image-upload"/>
+                                </Form.Label>
                                 <Form.Control multiple className="form-input" id="images" name="images" type="file" onChange={(e) => handleChange(e, 'images')}/>
                             </div>
-                            {error.images && <Form.Text className="text-danger">{error.images}</Form.Text>}
+                            {error.images && (!form.images || (Array.isArray(form.images) && form.images.length === 0)) && (<Form.Text className="text-danger">{error.images}</Form.Text>)}
                         </Form.Group>
 
                         <Button variant="primary" type="submit" className='button-add-trip'>Update trip</Button>
