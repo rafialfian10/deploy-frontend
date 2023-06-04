@@ -50,7 +50,8 @@ const Register = ({showReg, setShowReg, setShowLog, handleShowReg}) => {
           Swal.fire({
             text: 'Register successfully',
             icon: 'success',
-            confirmButtonText: 'Ok'
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#3cb371'
           })
 
       navigate("/");

@@ -255,7 +255,8 @@ const AddTrip = () => {
                 Swal.fire({
                     text: 'Trip successfully added',
                     icon: 'success',
-                    confirmButtonText: 'Ok'
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#3cb371'
                 })
                 navigate('/incom_trip'); 
               } else {

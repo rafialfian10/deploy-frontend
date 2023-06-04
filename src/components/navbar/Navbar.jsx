@@ -51,15 +51,16 @@ const Navbars = () => {
       title: 'Are you sure?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#3cb371',
+      cancelButtonColor: '#d35f56',
       confirmButtonText: 'Yes!'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: 'success',
-          text: 'Logout successfully'
-       })
+          text: 'Logout successfully',
+          confirmButtonColor: '#3cb371'
+        })
 
         dispatch({
           type: "LOGOUT",
@@ -69,8 +70,8 @@ const Navbars = () => {
     })
   };
 
-   // get data user
-   let { data: userProfile, refetch: refetchUserProfile} = useQuery('userProfileCache', async () => {
+  // get data user
+  let { data: userProfile, refetch: refetchUserProfile} = useQuery('userProfileCache', async () => {
     const response = await API.get(`/user`);
     return response.data.data
   });

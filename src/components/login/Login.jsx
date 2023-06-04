@@ -60,7 +60,8 @@ const Login = ({ showLog, setShowLog, handleShowReg, handleShowLog }) => {
         Swal.fire({
           text: 'Login successfully',
           icon: 'success',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#3cb371'
         })
 
         navigate("/")

@@ -1,23 +1,22 @@
 // components
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Swal from "sweetalert2";
+import {Button, Form, Modal} from 'react-bootstrap';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-// import ReactFlagsSelect from "react-flags-select";
-import Modal from 'react-bootstrap/Modal';
+import ReactFlagsSelect from "react-flags-select";
+import { countries } from 'countries-list';
 
 // API
 import { API } from '../../../config/api';
 
 // css
 import './AddCountry.scss'
+import Swal from "sweetalert2";
 
 const AddCountry = ({modalApproved, setModalApproved}) => {
 
   const navigate = useNavigate()
-
+ 
     // buat usestate untuk menampung data sementara
     const [form, setForm] = useState({
         name: "",
@@ -29,8 +28,8 @@ const AddCountry = ({modalApproved, setModalApproved}) => {
     });
   
     // function handlechange data di form
-    const handleChange = (e) => {
-        setForm({...form,[e.target.name]:e.target.value})
+    const handleChange = (country) => {
+        setForm({ ...form, name: country });
     }
   
     // handle submit
@@ -55,12 +54,16 @@ const AddCountry = ({modalApproved, setModalApproved}) => {
             } else {
                 messageError.name = ""
             }
+
+            // Convert country code menjadi full country name
+            const countryName = countries[form.name]?.name || '';
   
             // jika semua message error kosong
             if(messageError.name === "") {
+
                 // form data
                 const formData = new FormData();
-                formData.append('name', form.name);
+                formData.append('name', countryName);
   
                 // Insert trip data
                 const response = await API.post('/country', formData, config);
@@ -71,11 +74,15 @@ const AddCountry = ({modalApproved, setModalApproved}) => {
                   Swal.fire({
                       text: 'Country successfully added',
                       icon: 'success',
-                      confirmButtonText: 'Ok'
+                      confirmButtonText: 'Ok',
+                      confirmButtonColor: '#3cb371'
                   })
+
+                  setForm({
+                    name: ""
+                  })
+                  navigate('/incom_trip');
                 }
-  
-                navigate('/incom_trip');
               } else {
                   setError(messageError)
               }
@@ -91,10 +98,9 @@ const AddCountry = ({modalApproved, setModalApproved}) => {
           <Form>
             <Form.Group className="form-input mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Country</Form.Label>
-              <Form.Control type="text" name="name" autoFocus onChange={handleChange}/>
-              {/* <ReactFlagsSelect className="form-input flag-input" name="name" onChange={handleChange} selected={form} onSelect={(form) => {setForm(form); console.log("form",form)}}/> */}
+              <ReactFlagsSelect className="form-input flag-input" name="name" selected={form.name} onSelect={handleChange}/>
             </Form.Group>
-            {error.name && <Form.Text className="text-danger">{error.name}</Form.Text>}
+            {error.name && !form.name.trim() && <Form.Text className="text-danger">{error.name}</Form.Text>}
           </Form>
         </Modal.Body>
         <Modal.Footer>
