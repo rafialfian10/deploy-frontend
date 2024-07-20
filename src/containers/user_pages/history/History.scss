@@ -5,9 +5,9 @@
     border-radius: 5px;
     padding: 30px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
-                -1px -1px 1px 1px rgb(209, 209, 209);
-
+    box-shadow:
+        1px 1px 1px 1px rgb(209, 209, 209),
+        -1px -1px 1px 1px rgb(209, 209, 209);
 }
 
 .title-history-trip {
@@ -41,7 +41,7 @@
 
 .history-payment {
     width: 40%;
-    display: flex;   
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-right: 50px !important;
@@ -68,7 +68,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-} 
+}
 
 .sub-history-tour h5 {
     font-weight: bold;
@@ -79,7 +79,10 @@
     text-align: left;
 }
 
-.sub-history-tour .accomodation, .sub-history-tour .date, .sub-history-tour .duration, .sub-history-tour .transportation {
+.sub-history-tour .accomodation,
+.sub-history-tour .date,
+.sub-history-tour .duration,
+.sub-history-tour .transportation {
     width: 100%;
     margin-bottom: 30px !important;
     display: flex;

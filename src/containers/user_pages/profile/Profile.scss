@@ -7,8 +7,9 @@
     border-radius: 5px;
     padding: 30px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
-                -1px -1px 1px 1px rgb(209, 209, 209);
+    box-shadow:
+        1px 1px 1px 1px rgb(209, 209, 209),
+        -1px -1px 1px 1px rgb(209, 209, 209);
 }
 
 .content-profile1 {
@@ -28,25 +29,38 @@
     margin-right: 20px;
 }
 
-.content-profile1 .profile, .content-profile1 .email, .content-profile1 .phone, .content-profile1 .address {
+.content-profile1 .profile,
+.content-profile1 .email,
+.content-profile1 .phone,
+.content-profile1 .address {
     display: flex !important;
     align-items: center !important;
     margin: 10px;
 }
 
-.sub-profile, .sub-email, .sub-phone, .sub-address {
+.sub-profile,
+.sub-email,
+.sub-phone,
+.sub-address {
     display: flex;
     flex-direction: column;
 }
 
-.sub-profile .info1, .sub-email .info1, .sub-phone .info1, .sub-address , .info1 {
+.sub-profile .info1,
+.sub-email .info1,
+.sub-phone .info1,
+.sub-address,
+.info1 {
     font-weight: bold;
     text-align: left;
     color: black;
     font-size: 17px;
 }
 
-.sub-profile .info2, .sub-email .info2, .sub-phone .info2, .sub-address .info2 {
+.sub-profile .info2,
+.sub-email .info2,
+.sub-phone .info2,
+.sub-address .info2 {
     text-align: left;
     font-size: 14px;
 }
@@ -67,11 +81,11 @@
     margin-bottom: 10px;
 }
 
-.content-profile2 .btn-image{
+.content-profile2 .btn-image {
     width: 100%;
     height: 50px;
     border-radius: 5px;
-    background-color: orange ;
+    background-color: orange;
     border: none;
     color: white;
     font-weight: bold;
@@ -84,8 +98,7 @@
 
 .btn-image {
     &:hover {
-        background-color: orange ;
+        background-color: orange;
         opacity: 0.8;
     }
 }
-

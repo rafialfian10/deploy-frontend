@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const UserContext = createContext();
 
-const initialState = { 
+const initialState = {
   isLogin: false,
   user: {},
 };
@@ -41,4 +41,3 @@ export const UserContextProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
-

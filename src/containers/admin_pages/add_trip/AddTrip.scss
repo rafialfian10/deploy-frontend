@@ -1,36 +1,35 @@
 h2.title-add-trip {
-    font-weight: bold;
-    text-align: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 20px;
 }
 
 .form-add-trip {
-    margin: auto;
-    width: 70vw;
+  margin: auto;
+  width: 70vw;
 }
 
 .form-add-trip .form-input {
-    background-color: rgb(217, 219, 219) !important;
+  background-color: rgb(217, 219, 219) !important;
 }
 
-
-.form-dropdown{
-    position: relative;
+.form-dropdown {
+  position: relative;
 }
 
 .form-add-trip .dropdown {
-    width: 15px !important;
-    height: 10px !important;
-    position: absolute;
-    top: 47px !important;
-    right: 13px !important;
+  width: 15px !important;
+  height: 10px !important;
+  position: absolute;
+  top: 47px !important;
+  right: 13px !important;
 }
 
 .duration {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .day-content {
@@ -53,30 +52,32 @@ h2.title-add-trip {
   flex-direction: column;
 }
 
-.day-content .day, .night-content .night {
-    width: 95%;
-    margin-right: 30px;
+.day-content .day,
+.night-content .night {
+  width: 95%;
+  margin-right: 30px;
 }
 
-.label-day, .label-night {
-    margin: 0px !important;
-    margin-right: 50px !important;
+.label-day,
+.label-night {
+  margin: 0px !important;
+  margin-right: 50px !important;
 }
 
 .button-add-trip {
-    display: flex;
-    padding: 10px 20px;
-    justify-content: center;
-    margin: auto !important;
-    margin-top:50px !important;
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+  margin: auto !important;
+  margin-top: 50px !important;
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  border: none;
+  &:hover {
     background-color: orange;
-    color: white;
-    font-weight: bold;
-    border: none;
-    &:hover {
-      background-color: orange;
-      opacity: 0.8;
-    }
+    opacity: 0.8;
+  }
 }
 
 /* Input Upload Image */

@@ -6,11 +6,11 @@
 // components
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery,useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import History from "../history/History";
 
 // component react bootstrap
-import {Form, Image, Button} from "react-bootstrap";
+import { Form, Image, Button } from "react-bootstrap";
 
 // css
 import "./Profile.scss";
@@ -26,20 +26,19 @@ import defaultPhoto from "../../../assets/img/default-photo.png";
 import { API } from "../../../config/api";
 
 const Profile = () => {
-
   let { id } = useParams();
   id = parseInt(id);
 
   let no = 1;
 
-   // get data user
-   let { data: user, refetch: refetchUser} = useQuery('userCache', async () => {
+  // get data user
+  let { data: user, refetch: refetchUser } = useQuery("userCache", async () => {
     const response = await API.get(`/user`);
-    return response.data.data
+    return response.data.data;
   });
 
   useEffect(() => {
-    user && refetchUser()
+    user && refetchUser();
   });
 
   // handle submit image
@@ -56,17 +55,16 @@ const Profile = () => {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
-      console.log(response)
-      if(response.data.code === 200) {
-        refetchUser()
+      console.log(response);
+      if (response.data.code === 200) {
+        refetchUser();
       }
-
     } catch (err) {
       console.log(err);
     }
   });
 
-  return ( 
+  return (
     <>
       <div className="profile-container">
         <div className="content-profile1">
@@ -107,12 +105,25 @@ const Profile = () => {
           ) : (
             <Image src={defaultPhoto} className="photo-profile2" alt="" />
           )}
-          <Form.Control type="file" id="image" className="form-input input-image" name="image" onChange={handleSubmitImage.mutate}/>
-          <Button onClick={() => { document.getElementById("image").click()}} className="btn-image">Change Photo Profile</Button>
+          <Form.Control
+            type="file"
+            id="image"
+            className="form-input input-image"
+            name="image"
+            onChange={handleSubmitImage.mutate}
+          />
+          <Button
+            onClick={() => {
+              document.getElementById("image").click();
+            }}
+            className="btn-image"
+          >
+            Change Photo Profile
+          </Button>
         </div>
-      </div>    
-      <History/>
-    </>   
+      </div>
+      <History />
+    </>
   );
 };
 

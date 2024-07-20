@@ -27,8 +27,8 @@ const Payment = () => {
 
   const navigate = useNavigate();
 
-  let {id} = useParams();
-  id = parseInt(id)
+  let { id } = useParams();
+  id = parseInt(id);
 
   const [state] = useContext(UserContext);
 
@@ -42,29 +42,29 @@ const Payment = () => {
   };
 
   // get transactions
-  let { data: transactionPending, refetch: refetchTransactionPending } = useQuery("transactionPendingCache", async () => {
-    const response = await API.get("/transactionsbyuser", config);
-    return response.data.data;
-  });
+  let { data: transactionPending, refetch: refetchTransactionPending } =
+    useQuery("transactionPendingCache", async () => {
+      const response = await API.get("/transactionsbyuser", config);
+      return response.data.data;
+    });
 
   useEffect(() => {
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     const myMidtransClientKey = "SB-Mid-client-xBHWdiuU4aVE9vOq";
-  
+
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
-   
+
     scriptTag.setAttribute("data-client-key", myMidtransClientKey);
-  
+
     document.body.appendChild(scriptTag);
     return () => {
       document.body.removeChild(scriptTag);
     };
-    
   }, []);
 
   const handleContinuePendingTransaction = useMutation(async (transaction) => {
-    console.log(transaction)
+    console.log(transaction);
     // const config = {
     //   method: "PATCH",
     //   headers: {
@@ -78,38 +78,41 @@ const Payment = () => {
     formData.append("total", transaction?.total);
     formData.append("tripId", transaction?.id);
 
-    const response = await API.patch(`/transaction/${transaction?.id}`, formData);
+    const response = await API.patch(
+      `/transaction/${transaction?.id}`,
+      formData
+    );
     let token = response.data.data.token;
 
-    if(response.data.code === 200) {
+    if (response.data.code === 200) {
       window.snap.pay(token, {
         onSuccess: function (result) {
           Swal.fire({
-            text: 'Transaction success',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })
+            text: "Transaction success",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
           navigate(`/profile/${id}`);
           window.location.reload();
         },
         onPending: function (result) {
           Swal.fire({
-            text: 'please make payment first',
-            confirmButtonText: 'Ok'
+            text: "please make payment first",
+            confirmButtonText: "Ok",
           });
           navigate(`/detail/${id}`);
         },
         onError: function (result) {
           Swal.fire({
-            icon: 'success',
-            text: 'cancel transaction successfully'
-          })
+            icon: "success",
+            text: "cancel transaction successfully",
+          });
           navigate(`/detail/${id}`);
         },
         onClose: function () {
           Swal.fire({
-            text: 'cancel transaction successfully',
-            confirmButtonText: 'Ok'
+            text: "cancel transaction successfully",
+            confirmButtonText: "Ok",
           });
         },
       });
@@ -117,19 +120,25 @@ const Payment = () => {
   });
 
   useEffect(() => {
-    refetchTransactionPending()
-  })
+    refetchTransactionPending();
+  });
 
   return (
     <>
       <Popup popup={popup} setPopup={setPopup} />
-      {transactionPending?.filter((transaction) => transaction.status === "pending").length <= 0 ? (
+      {transactionPending?.filter(
+        (transaction) => transaction.status === "pending"
+      ).length <= 0 ? (
         <>
           <h1 className="empty">Payment is Empty</h1>
         </>
       ) : (
         transactionPending?.map((transaction, i) => {
-          {if(transaction?.user.name === state?.user.name && transaction?.status === "pending") {
+          {
+            if (
+              transaction?.user.name === state?.user.name &&
+              transaction?.status === "pending"
+            ) {
               return (
                 <>
                   <div className="payment-container" key={i}>
@@ -137,15 +146,23 @@ const Payment = () => {
                       <Image src={icon} alt="" />
                       <div className="sub-content1">
                         <h3 className="status">Booking</h3>
-                        <Form.Text className="date"><Moment format="DD MMM YYYY, h:mm:ss A">{transaction?.booking_date}</Moment></Form.Text>
+                        <Form.Text className="date">
+                          <Moment format="DD MMM YYYY, h:mm:ss A">
+                            {transaction?.booking_date}
+                          </Moment>
+                        </Form.Text>
                       </div>
                     </div>
 
                     <div className="content2">
                       <div className="info-payment">
                         <h3 className="title">{transaction?.trip.title}</h3>
-                        <Form.Text className="country">{transaction?.trip.country.name}</Form.Text>
-                        <Form.Text className="status-payment">Waiting Payment</Form.Text>
+                        <Form.Text className="country">
+                          {transaction?.trip.country.name}
+                        </Form.Text>
+                        <Form.Text className="status-payment">
+                          Waiting Payment
+                        </Form.Text>
                       </div>
 
                       <div className="info-tour">
@@ -153,30 +170,45 @@ const Payment = () => {
                           <div className="date">
                             <h5>Date Trip</h5>
                             <Form.Text>
-                              <Moment format="DD MMM YYYY, h:mm:ss A">{transaction?.trip.datetrip}</Moment>
+                              <Moment format="DD MMM YYYY, h:mm:ss A">
+                                {transaction?.trip.datetrip}
+                              </Moment>
                             </Form.Text>
                           </div>
 
                           <div className="accomodation">
                             <h5>Accomodation</h5>
-                            <Form.Text>{transaction?.trip.accomodation}</Form.Text>
+                            <Form.Text>
+                              {transaction?.trip.accomodation}
+                            </Form.Text>
                           </div>
                         </div>
                         <div className="sub-info-tour">
                           <div className="duration">
                             <h5>Duration</h5>
-                            <Form.Text>{transaction?.trip.day} Day{" "}{transaction?.trip.night} Night</Form.Text>
+                            <Form.Text>
+                              {transaction?.trip.day} Day{" "}
+                              {transaction?.trip.night} Night
+                            </Form.Text>
                           </div>
                           <div className="transportation">
                             <h5>Transportation</h5>
-                            <Form.Text>{transaction?.trip.transportation}</Form.Text>
+                            <Form.Text>
+                              {transaction?.trip.transportation}
+                            </Form.Text>
                           </div>
                         </div>
                       </div>
 
                       <div className="content-img-payment">
-                        <Image src={imgPayment} alt="" className="img-payment"/>
-                        <Form.Text className="text-payment">Upload Payment Proof</Form.Text>
+                        <Image
+                          src={imgPayment}
+                          alt=""
+                          className="img-payment"
+                        />
+                        <Form.Text className="text-payment">
+                          Upload Payment Proof
+                        </Form.Text>
                       </div>
                     </div>
 
@@ -198,7 +230,9 @@ const Payment = () => {
                           <td>{transaction?.user.gender}</td>
                           <td>{transaction?.user.phone}</td>
                           <td className="fw-bold">Qty</td>
-                          <td className="fw-bold">: {transaction?.counter_qty}</td>
+                          <td className="fw-bold">
+                            : {transaction?.counter_qty}
+                          </td>
                         </tr>
                         <tr>
                           <td></td>
@@ -215,13 +249,21 @@ const Payment = () => {
                   </div>
 
                   <div className="content-btn-pay-pending">
-                    <Button type="submit" className="btn-pay-pending" onClick={() => {handleContinuePendingTransaction.mutate(transaction)}}>Continue Pay</Button>
+                    <Button
+                      type="submit"
+                      className="btn-pay-pending"
+                      onClick={() => {
+                        handleContinuePendingTransaction.mutate(transaction);
+                      }}
+                    >
+                      Continue Pay
+                    </Button>
                   </div>
                 </>
               );
             }
           }
-        }) 
+        })
       )}
     </>
   );

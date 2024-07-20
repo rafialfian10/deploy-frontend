@@ -19,42 +19,39 @@ import Jumbotron from "../components/jumbotron/Jumbotron";
 import Card1 from "../components/card1/Card1";
 import Card2 from "../components/card2/Card2";
 
-
 const Home = () => {
-
   const navigate = useNavigate();
 
-  const [myContext] = useContext(UserContext)
+  const [myContext] = useContext(UserContext);
 
   // jika sewaktu halaman dirender pertama kali ada local storage isAdmin maka navigate
   useEffect(() => {
-    myContext.user.role === "admin" &&
-    navigate("/list_transaction");
+    myContext.user.role === "admin" && navigate("/list_transaction");
   });
 
   // state search
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
 
   // state data trips
   const [data, setData] = useState();
 
   const config = {
     headers: {
-      'Content-type': 'multipart/form-data',
-      Authorization: "Bearer " + localStorage.getItem("token")
+      "Content-type": "multipart/form-data",
+      Authorization: "Bearer " + localStorage.getItem("token"),
     },
   };
 
-  // get trips 
-  let { data: trips } = useQuery('tripsSearchCaches', async () => {
+  // get trips
+  let { data: trips } = useQuery("tripsSearchCaches", async () => {
     const response = await API.get(`/trips`, config);
-    setData(response.data.data)
+    setData(response.data.data);
   });
 
   // handle search
   const handleSearch = (e) => {
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
 
   return (
     <>
@@ -66,7 +63,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-

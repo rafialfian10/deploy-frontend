@@ -6,413 +6,555 @@ import { useQuery, useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 // components react bootstrap
-import {Button, Form, Modal, FloatingLabel, FormText, FormLabel, Image} from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  FloatingLabel,
+  FormText,
+  FormLabel,
+  Image,
+} from "react-bootstrap";
 
 // api
 import { API } from "../../../config/api";
 
 // css
-import './ModalUpdateTrip.scss'
+import "./ModalUpdateTrip.scss";
 import Swal from "sweetalert2";
 
 // image
-import dropdown from '../../../assets/img/img-dropdown.png'
-import attache from '../../../assets/img/attache.png'
+import dropdown from "../../../assets/img/img-dropdown.png";
+import attache from "../../../assets/img/attache.png";
 
+const ModalUpdateTrip = ({
+  modalUpdate,
+  setModalUpdate,
+  value,
+  tripId,
+  refetchTrip,
+}) => {
+  // console.log("value props:",value)
 
-const ModalUpdateTrip = ({modalUpdate, setModalUpdate, value, tripId, refetchTrip}) => {
-    // console.log("value props:",value)
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const [preview, setPreview] = useState();
 
-    const [preview, setPreview] =useState()
+  // get countries
+  let { data: countries } = useQuery("userCache", async () => {
+    const response = await API.get(`/countries`);
+    return response.data.data;
+  });
 
-    // get countries
-    let { data: countries} = useQuery('userCache', async () => {
-        const response = await API.get(`/countries`);
-        return response.data.data;
-    });
+  //state form
+  const [form, setForm] = useState({
+    title: "",
+    countryId: "",
+    accomodation: "",
+    transportation: "",
+    eat: "",
+    day: "",
+    night: "",
+    datetrip: "",
+    price: "",
+    quota: "",
+    description: "",
+    images: [],
+  });
 
-    //state form
-    const [form, setForm] = useState({
-        title: '',
-        countryId: '',
-        accomodation: '',
-        transportation: '',
-        eat: '',
-        day: '',
-        night: '',
-        datetrip: '',
-        price: '',
-        quota: '',
-        description: '',
-        images: [],
-    })
+  useEffect(() => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      title: value?.title || "",
+      countryId: value?.country.id || "",
+      accomodation: value?.accomodation || "",
+      transportation: value?.transportation || "",
+      eat: value?.eat || "",
+      day: value?.day || "",
+      night: value?.night || "",
+      datetrip: value?.datetrip || "",
+      price: value?.price || "",
+      quota: value?.quota || "",
+      description: value?.description || "",
+      images: value?.images || "",
+    }));
 
-    useEffect(() => {
-        setForm((prevForm) => ({
-            ...prevForm,
-            title: value?.title || "",
-            countryId: value?.country.id || "",
-            accomodation: value?.accomodation || "",
-            transportation: value?.transportation || "",
-            eat: value?.eat || "",
-            day: value?.day || "",
-            night: value?.night || "",
-            datetrip: value?.datetrip || "",
-            price: value?.price || "",
-            quota: value?.quota || "",
-            description: value?.description || "",
-            images: value?.images || "",
-        }));
+    if (value?.datetrip) {
+      const date = new Date(value.datetrip);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
+      setForm((prevForm) => ({
+        ...prevForm,
+        datetrip: formattedDate,
+      }));
+    }
+  }, [value]);
 
-        if (value?.datetrip) {
-            const date = new Date(value.datetrip);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, "0");
-            const day = String(date.getDate()).padStart(2, "0");
-            const formattedDate = `${year}-${month}-${day}`;
-            setForm((prevForm) => ({
-              ...prevForm,
-              datetrip: formattedDate,
-            }));
+  // state error
+  const [error, setError] = useState({
+    title: "",
+    countryId: "",
+    accomodation: "",
+    transportation: "",
+    eat: "",
+    day: "",
+    night: "",
+    datetrip: "",
+    price: "",
+    quota: "",
+    description: "",
+    images: "",
+  });
+
+  const handleChange = (e) => {
+    if (e.target.name === "images") {
+      // mengambil file yang diupload pada input file
+      let filesImg = e.target.files;
+
+      // Cek file upload apakah ada ? apakah formatnya sesuai (jpeg/png) ?
+      if (filesImg.length > 0) {
+        let arrImg = [];
+
+        for (const indexImg in filesImg) {
+          if (
+            filesImg[indexImg].type === "image/png" ||
+            filesImg[indexImg].type === "image/jpeg" ||
+            filesImg[indexImg].type === "image/jpg"
+          ) {
+            // jika semua syarat terpenuhi, buatlah urlnya lalu simpan di object dengan key filesImg[indexImg]
+            arrImg.push(filesImg[indexImg]);
+          }
         }
-    }, [value])
 
-    // state error
-    const [error, setError] = useState({
-        title: '',
-        countryId: '',
-        accomodation: '',
-        transportation: '',
-        eat: '',
-        day: '',
-        night: '',
-        datetrip: '',
-        price: '',
-        quota: '',
-        description: '',
-        images: '',
-    });
-    
-    const handleChange = (e) => {
-        if (e.target.name === "images") {
-            // mengambil file yang diupload pada input file
-            let filesImg = e.target.files;
-      
-            // Cek file upload apakah ada ? apakah formatnya sesuai (jpeg/png) ?
-            if (filesImg.length > 0) {
-                let arrImg = [];
-      
-                for (const indexImg in filesImg) {
-                    if (filesImg[indexImg].type === "image/png" || filesImg[indexImg].type === "image/jpeg" || filesImg[indexImg].type === "image/jpg") {
-                        // jika semua syarat terpenuhi, buatlah urlnya lalu simpan di object dengan key filesImg[indexImg]
-                        arrImg.push(filesImg[indexImg]);
-                    }
-                }
-      
-                setForm((prevState) => {
-                    return {
-                    ...prevState,
-                    [e.target.name]: [...prevState.images, ...arrImg],
-                    };
-                });
-            }
-        } else if (e.target.name === "price" || e.target.name === "quota") {
-            setForm((prevState) => {
-                return { ...prevState, [e.target.name]: e.target.value.toString().trim() };
-            });
-        } else {
-            setForm((prevState) => {
-                return { ...prevState, [e.target.name]: e.target.value };
-            });
+        setForm((prevState) => {
+          return {
+            ...prevState,
+            [e.target.name]: [...prevState.images, ...arrImg],
+          };
+        });
+      }
+    } else if (e.target.name === "price" || e.target.name === "quota") {
+      setForm((prevState) => {
+        return {
+          ...prevState,
+          [e.target.name]: e.target.value.toString().trim(),
+        };
+      });
+    } else {
+      setForm((prevState) => {
+        return { ...prevState, [e.target.name]: e.target.value };
+      });
+    }
+  };
+
+  const handleUpdateTrip = useMutation(async (e) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
+
+      const messageError = {
+        title: "",
+        countryId: "",
+        accomodation: "",
+        transportation: "",
+        eat: "",
+        day: "",
+        night: "",
+        datetrip: "",
+        price: "",
+        quota: "",
+        description: "",
+        images: "",
+      };
+
+      // validasi form title
+      if (form.title === "") {
+        messageError.title = "Title must be filled out";
+      } else {
+        messageError.title = "";
+      }
+
+      // validasi form country
+      if (form.countryId === "") {
+        messageError.countryId = "Country must be filled out";
+      } else {
+        messageError.countryId = "";
+      }
+
+      // validasi form accomodation
+      if (form.accomodation === "") {
+        messageError.accomodation = "Accomodation must be filled out";
+      } else {
+        messageError.accomodation = "";
+      }
+
+      // validasi form transportation
+      if (form.transportation === "") {
+        messageError.transportation = "Transportation must be filled out";
+      } else {
+        messageError.transportation = "";
+      }
+
+      // validasi form eat
+      if (form.eat === "") {
+        messageError.eat = "Eat must be filled out";
+      } else {
+        messageError.eat = "";
+      }
+
+      // validasi form day
+      if (form.day === "") {
+        messageError.day = "Day must be filled out";
+      } else if (parseInt(form.day) < 1) {
+        messageError.day = "can't be less than 1";
+      } else {
+        messageError.day = "";
+      }
+
+      // validasi form night
+      if (form.night === "") {
+        messageError.night = "Day must be filled out";
+      } else if (parseInt(form.night) < 1) {
+        messageError.night = "can't be less than 1";
+      } else {
+        messageError.night = "";
+      }
+
+      // validasi form date trip
+      if (form.datetrip === "") {
+        messageError.datetrip = "Date must be filled out";
+      } else {
+        messageError.datetrip = "";
+      }
+
+      // validasi form price
+      if (form.price === "") {
+        messageError.price = "Price must be filled out";
+      } else if (isNaN(form.price)) {
+        messageError.price = "Price must be a number";
+      } else if (parseFloat(form.price) < 0) {
+        messageError.price = "Price can't be less than 0";
+      } else {
+        messageError.price = "";
+      }
+
+      // validasi form quota
+      if (form.quota === "") {
+        messageError.quota = "Quota must be filled out";
+      } else if (isNaN(form.quota)) {
+        messageError.quota = "Quota must be a number";
+      } else if (parseFloat(form.quota) < 0) {
+        messageError.quota = "Quota can't be less than 0";
+      } else {
+        messageError.quota = "";
+      }
+
+      // validasi form date description
+      if (form.description === "") {
+        messageError.description = "Description must be filled out";
+      } else {
+        messageError.description = "";
+      }
+
+      // validasi form date image
+      if (!form.images || form.images.length === 0) {
+        messageError.images = "Image must be filled out";
+      } else {
+        messageError.images = "";
+      }
+
+      if (
+        // jika semua message error kosong
+        messageError.title === "" &&
+        messageError.countryId === "" &&
+        messageError.accomodation === "" &&
+        messageError.transportation === "" &&
+        messageError.eat === "" &&
+        messageError.day === "" &&
+        messageError.night === "" &&
+        messageError.datetrip === "" &&
+        messageError.price === "" &&
+        messageError.quota === "" &&
+        messageError.description === "" &&
+        messageError.images === ""
+      ) {
+        // form add data trip
+        // let dateTrip = moment(form.datetrip).format('mm/dd/yyyy')
+        const formData = new FormData();
+        formData.append("title", form.title);
+        formData.append("country_id", form.countryId);
+        formData.append("accomodation", form.accomodation);
+        formData.append("transportation", form.transportation);
+        formData.append("eat", form.eat);
+        formData.append("day", form.day);
+        formData.append("night", form.night);
+        formData.append("datetrip", form.datetrip);
+        formData.append("price", form.price);
+        formData.append("quota", form.quota);
+        formData.append("description", form.description);
+        form.images.forEach((img) => {
+          formData.append("images", img);
+        });
+        // formData.append('image', form.images[0]);
+
+        // Insert trip data
+        const response = await API.patch(`/trip/${tripId}`, formData, config);
+        if (response.status === 200) {
+          Swal.fire({
+            text: "Trip successfully updated",
+            icon: "success",
+            confirmButtonText: "Ok",
+          });
+
+          refetchTrip();
+          setModalUpdate(false);
+          navigate("/incom_trip");
         }
-    };
+      } else {
+        setError(messageError);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  return (
+    <>
+      <Modal
+        show={modalUpdate}
+        onHide={() => setModalUpdate(false)}
+        className="modal-update-trip"
+        size="lg"
+      >
+        <Modal.Body className="modal-body-update-trip">
+          <h2 className="title-update-trip">Update Trip</h2>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUpdateTrip.mutate(e);
+            }}
+          >
+            <Form.Group className="form-group">
+              <Form.Label>Title Trip</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="title"
+                type="text"
+                value={form.title}
+                onChange={(e) => handleChange(e, "title")}
+              />
+              {error.title && !form.title.trim() && (
+                <Form.Text className="text-danger">{error.title}</Form.Text>
+              )}
+            </Form.Group>
 
-    const handleUpdateTrip = useMutation( async (e) => {
-        try {
-            const config = {
-                headers: {
-                'Content-type': 'multipart/form-data',
-                Authorization: "Bearer " + localStorage.getItem("token"),
-                },
-            };
+            <Form.Group className="form-group form-dropdown">
+              <Form.Label>Country</Form.Label>
+              <Image src={dropdown} alt="" className="dropdown" />
+              <Form.Select
+                aria-label="Default select example"
+                name="countryId"
+                value={form.countryId}
+                className="form-input"
+                onChange={(e) => handleChange(e, "countryId")}
+              >
+                <option value=""></option>
+                {countries?.map((country, i) => {
+                  return (
+                    <option value={country?.id} key={i}>
+                      {country?.name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
+              {error.countryId && !form.countryId.trim() && (
+                <Form.Text className="text-danger">{error.countryId}</Form.Text>
+              )}
+            </Form.Group>
 
-            const messageError = {
-                title: '',
-                countryId: '',
-                accomodation: '',
-                transportation: '',
-                eat: '',
-                day: '',
-                night: '',
-                datetrip: '',
-                price: '',
-                quota: '',
-                description: '',
-                images: '',
-              };
+            <Form.Group className="form-group">
+              <Form.Label>Accomodation</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="accomodation"
+                type="text"
+                value={form.accomodation}
+                onChange={(e) => handleChange(e, "accomodation")}
+              />
+              {error.accomodation && !form.accomodation.trim() && (
+                <Form.Text className="text-danger">
+                  {error.accomodation}
+                </Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form title
-            if (form.title === "") {
-                messageError.title = "Title must be filled out";
-            } else {
-                messageError.title = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Transportation</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="transportation"
+                type="text"
+                value={form.transportation}
+                onChange={(e) => handleChange(e, "transportation")}
+              />
+              {error.transportation && !form.transportation.trim() && (
+                <Form.Text className="text-danger">
+                  {error.transportation}
+                </Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form country
-            if (form.countryId === "") {
-                messageError.countryId = "Country must be filled out";
-            } else {
-                messageError.countryId = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Eat</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="eat"
+                type="text"
+                value={form.eat}
+                onChange={(e) => handleChange(e, "eat")}
+              />
+              {error.eat && !form.eat.trim() && (
+                <Form.Text className="text-danger">{error.eat}</Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form accomodation
-            if (form.accomodation === "") {
-                messageError.accomodation = "Accomodation must be filled out";
-            } else {
-                messageError.accomodation = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Duration</Form.Label>
+              <div className="duration">
+                <div className="day-content">
+                  <div className="sub-day-content">
+                    <Form.Control
+                      className="form-input day"
+                      name="day"
+                      type="number"
+                      value={form.day}
+                      onChange={(e) => handleChange(e, "day")}
+                    />
+                    <Form.Label className="label-day">Day</Form.Label>
+                  </div>
+                  {error.day && !form.day.trim() && (
+                    <Form.Text className="text-danger">{error.day}</Form.Text>
+                  )}
+                </div>
 
-            // validasi form transportation
-            if (form.transportation === "") {
-                messageError.transportation = "Transportation must be filled out";
-            } else {
-                messageError.transportation = ""
-            }
+                <div className="night-content">
+                  <div className="sub-night-content">
+                    <Form.Control
+                      className="form-input night"
+                      name="night"
+                      type="number"
+                      value={form.night}
+                      onChange={(e) => handleChange(e, "night")}
+                    />
+                    <Form.Label className="label-night">Night</Form.Label>
+                  </div>
+                  {error.night && !form.night.trim() && (
+                    <Form.Text className="text-danger">{error.night}</Form.Text>
+                  )}
+                </div>
+              </div>
+            </Form.Group>
 
-            // validasi form eat
-            if (form.eat === "") {
-                messageError.eat = "Eat must be filled out";
-            } else {
-                messageError.eat = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Date Trip</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="datetrip"
+                type="date"
+                value={form.datetrip}
+                onChange={(e) => handleChange(e, "datetrip")}
+              />
+              {error.datetrip && !form.datetrip.trim() && (
+                <Form.Text className="text-danger">{error.datetrip}</Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form day
-            if (form.day === "") {
-                messageError.day = "Day must be filled out";
-            } else if (parseInt(form.day) < 1) {
-                messageError.day = "can't be less than 1"
-            } else {
-                messageError.day = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="price"
+                type="text"
+                value={form.price}
+                onChange={(e) => handleChange(e, "price")}
+              />
+              {error.price && !form.price.trim() && (
+                <Form.Text className="text-danger">{error.price}</Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form night
-            if (form.night === "") {
-                messageError.night = "Day must be filled out";
-            } else if (parseInt(form.night) < 1) {
-                messageError.night = "can't be less than 1"
-            } else {
-                messageError.night = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Quota</Form.Label>
+              <Form.Control
+                className="form-input"
+                name="quota"
+                type="number"
+                value={form.quota}
+                onChange={(e) => handleChange(e, "quota")}
+              />
+              {error.quota && !form.quota.trim() && (
+                <Form.Text className="text-danger">{error.quota}</Form.Text>
+              )}
+            </Form.Group>
 
-            // validasi form date trip
-            if (form.datetrip === "") {
-                messageError.datetrip = "Date must be filled out";
-            } else {
-                messageError.datetrip = ""
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Description</Form.Label>
+              <FloatingLabel controlId="floatingTextarea2">
+                <Form.Control
+                  as="textarea"
+                  className="form-input"
+                  name="description"
+                  value={form.description}
+                  style={{ height: "100px" }}
+                  onChange={(e) => handleChange(e, "description")}
+                />
+                {error.description && !form.description.trim() && (
+                  <Form.Text className="text-danger">
+                    {error.description}
+                  </Form.Text>
+                )}
+              </FloatingLabel>
+            </Form.Group>
 
-            // validasi form price
-            if (form.price === "") {
-                messageError.price = "Price must be filled out";
-            } else if (isNaN(form.price)) {
-                messageError.price = "Price must be a number";
-            } else if (parseFloat(form.price) < 0) {
-                messageError.price = "Price can't be less than 0";
-            } else {
-                messageError.price = "";
-            }
+            <Form.Group className="form-group">
+              <Form.Label>Image</Form.Label>
+              <div className="img-upload">
+                <Form.Label
+                  htmlFor="images"
+                  className="form-input label-upload"
+                >
+                  <Form.Text className="text-upload">Attache Here</Form.Text>
+                  <Image src={attache} alt="" className="image-upload" />
+                </Form.Label>
+                <Form.Control
+                  multiple
+                  className="form-input"
+                  id="images"
+                  name="images"
+                  type="file"
+                  onChange={(e) => handleChange(e, "images")}
+                />
+              </div>
+              {error.images &&
+                (!form.images ||
+                  (Array.isArray(form.images) && form.images.length === 0)) && (
+                  <Form.Text className="text-danger">{error.images}</Form.Text>
+                )}
+            </Form.Group>
 
-            // validasi form quota
-            if (form.quota === "") {
-                messageError.quota = "Quota must be filled out";
-            } else if (isNaN(form.quota)) {
-                messageError.quota = "Quota must be a number";
-            } else if (parseFloat(form.quota) < 0) {
-                messageError.quota = "Quota can't be less than 0";
-            } else {
-                messageError.quota = "";
-            }
-
-            // validasi form date description
-            if (form.description === "") {
-                messageError.description = "Description must be filled out";
-            } else {
-                messageError.description = ""
-            }
-
-            // validasi form date image
-            if (!form.images || form.images.length === 0) {
-                messageError.images = "Image must be filled out";
-            } else {
-                messageError.images = ""
-            }
-
-            if (
-                // jika semua message error kosong
-                messageError.title === "" &&
-                messageError.countryId === "" &&
-                messageError.accomodation === "" &&
-                messageError.transportation === "" &&
-                messageError.eat === "" &&
-                messageError.day === "" &&
-                messageError.night === "" &&
-                messageError.datetrip === "" &&
-                messageError.price === "" &&
-                messageError.quota === "" &&
-                messageError.description === "" &&
-                messageError.images === ""
-              ) {
-                // form add data trip
-                // let dateTrip = moment(form.datetrip).format('mm/dd/yyyy')
-                const formData = new FormData();
-                formData.append('title', form.title);
-                formData.append('country_id', form.countryId);
-                formData.append('accomodation', form.accomodation);
-                formData.append('transportation', form.transportation);
-                formData.append('eat', form.eat);
-                formData.append('day', form.day);
-                formData.append('night', form.night);
-                formData.append('datetrip', form.datetrip);
-                formData.append('price', form.price);
-                formData.append('quota', form.quota);
-                formData.append('description', form.description);
-                form.images.forEach((img) => {
-                    formData.append("images", img);
-                });
-                // formData.append('image', form.images[0]);
-
-                // Insert trip data
-                const response = await API.patch(`/trip/${tripId}`, formData, config);
-                if(response.status === 200) {
-                    Swal.fire({
-                        text: 'Trip successfully updated',
-                        icon: 'success',
-                        confirmButtonText: 'Ok'
-                    })
-
-                    refetchTrip()
-                    setModalUpdate(false)
-                    navigate('/incom_trip');
-                }
-              } else {
-                setError(messageError)
-              }
-        } catch (err) {
-            console.log(err)
-        }
-    })
-    return (
-        <>
-            <Modal show={modalUpdate} onHide={() => setModalUpdate(false)} className="modal-update-trip" size="lg">
-                <Modal.Body className="modal-body-update-trip">
-                    <h2 className="title-update-trip">Update Trip</h2>
-                    <Form onSubmit={(e) => {e.preventDefault()
-                    handleUpdateTrip.mutate(e)}}>
-                        <Form.Group className="form-group">
-                            <Form.Label>Title Trip</Form.Label>
-                            <Form.Control className="form-input" name="title" type="text" value={form.title} onChange={(e) => handleChange(e, 'title')}/>
-                            {error.title && !form.title.trim() && <Form.Text className="text-danger">{error.title}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group form-dropdown">
-                            <Form.Label>Country</Form.Label>
-                            <Image src={dropdown} alt="" className="dropdown"/>
-                            <Form.Select aria-label="Default select example" name="countryId" value={form.countryId} className="form-input" onChange={(e) => handleChange(e, 'countryId')}>
-                                <option value=""></option>
-                                {countries?.map((country, i) => {
-                                    return (
-                                        <option value={country?.id} key={i}>{country?.name}</option>
-                                    )
-                                })}
-                            </Form.Select>
-                            {error.countryId && !form.countryId.trim() && <Form.Text className="text-danger">{error.countryId}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Accomodation</Form.Label>
-                            <Form.Control className="form-input" name="accomodation" type="text" value={form.accomodation}  onChange={(e) => handleChange(e, 'accomodation')}/>
-                            {error.accomodation && !form.accomodation.trim() && <Form.Text className="text-danger">{error.accomodation}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Transportation</Form.Label>
-                            <Form.Control className="form-input" name="transportation" type="text" value={form.transportation}  onChange={(e) => handleChange(e, 'transportation')}/>
-                            {error.transportation && !form.transportation.trim() && <Form.Text className="text-danger">{error.transportation}</Form.Text>}
-                        </Form.Group>
-
-                            <Form.Group className="form-group">
-                            <Form.Label>Eat</Form.Label>
-                            <Form.Control className="form-input" name="eat" type="text" value={form.eat} onChange={(e) => handleChange(e, 'eat')}/>
-                            {error.eat && !form.eat.trim() && <Form.Text className="text-danger">{error.eat}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Duration</Form.Label>
-                            <div className="duration">
-                                <div className="day-content">
-                                    <div className='sub-day-content'>
-                                        <Form.Control className="form-input day" name="day" type="number" value={form.day} onChange={(e) => handleChange(e, 'day')}/>
-                                        <Form.Label className="label-day">Day</Form.Label>
-                                    </div>
-                                    {error.day && !form.day.trim() && <Form.Text className="text-danger">{error.day}</Form.Text>}
-                                </div>
-
-                                <div className="night-content">
-                                    <div className='sub-night-content'>
-                                        <Form.Control className="form-input night" name="night" type="number" value={form.night} onChange={(e) => handleChange(e, 'night')}/>
-                                        <Form.Label className="label-night">Night</Form.Label>
-                                    </div>
-                                    {error.night && !form.night.trim() && <Form.Text className="text-danger">{error.night}</Form.Text>}
-                                </div>
-                            </div>
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Date Trip</Form.Label>
-                            <Form.Control className="form-input" name="datetrip" type="date" value={form.datetrip} onChange={(e) => handleChange(e, 'datetrip')}/>
-                            {error.datetrip && !form.datetrip.trim() && <Form.Text className="text-danger">{error.datetrip}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control className="form-input" name="price" type="text" value={form.price} onChange={(e) => handleChange(e, 'price')}/>
-                            {error.price && !form.price.trim() && <Form.Text className="text-danger">{error.price}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Quota</Form.Label>
-                            <Form.Control className="form-input" name="quota" type="number" value={form.quota}  onChange={(e) => handleChange(e, 'quota')}/>
-                            {error.quota && !form.quota.trim() && <Form.Text className="text-danger">{error.quota}</Form.Text>}
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Description</Form.Label>
-                            <FloatingLabel controlId="floatingTextarea2">
-                                <Form.Control as="textarea" className="form-input" name="description" value={form.description}  style={{ height: '100px' }} onChange={(e) => handleChange(e, 'description')}/>
-                                {error.description && !form.description.trim() && <Form.Text className="text-danger">{error.description}</Form.Text>}
-                            </FloatingLabel>
-                        </Form.Group>
-
-                        <Form.Group className="form-group">
-                            <Form.Label>Image</Form.Label>
-                            <div className="img-upload">
-                                <Form.Label htmlFor="images" className="form-input label-upload">
-                                    <Form.Text className="text-upload">Attache Here</Form.Text>
-                                    <Image src={attache} alt="" className="image-upload"/>
-                                </Form.Label>
-                                <Form.Control multiple className="form-input" id="images" name="images" type="file" onChange={(e) => handleChange(e, 'images')}/>
-                            </div>
-                            {error.images && (!form.images || (Array.isArray(form.images) && form.images.length === 0)) && (<Form.Text className="text-danger">{error.images}</Form.Text>)}
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit" className='button-add-trip'>Update trip</Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-        </>
-    )
-}
+            <Button variant="primary" type="submit" className="button-add-trip">
+              Update trip
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+};
 
 export default ModalUpdateTrip;

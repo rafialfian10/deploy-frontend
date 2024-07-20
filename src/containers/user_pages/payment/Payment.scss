@@ -6,8 +6,9 @@
     border-radius: 5px;
     padding: 30px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
-                -1px -1px 1px 1px rgb(209, 209, 209);
+    box-shadow:
+        1px 1px 1px 1px rgb(209, 209, 209),
+        -1px -1px 1px 1px rgb(209, 209, 209);
 }
 
 .status {
@@ -41,7 +42,7 @@
 
 .info-payment {
     width: 40%;
-    display: flex;   
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-right: 50px !important;
@@ -81,7 +82,7 @@ h3.title {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-} 
+}
 
 .sub-info-tour h5 {
     font-weight: bold;
@@ -92,7 +93,10 @@ h3.title {
     text-align: left;
 }
 
-.sub-info-tour .accomodation, .sub-info-tour .date, .sub-info-tour .duration, .sub-info-tour .transportation {
+.sub-info-tour .accomodation,
+.sub-info-tour .date,
+.sub-info-tour .duration,
+.sub-info-tour .transportation {
     width: 100%;
     margin-bottom: 30px !important;
     display: flex;
@@ -136,7 +140,7 @@ h3.title {
 
 .btn-pay-pending {
     width: 130px;
-    height: 50px ;
+    height: 50px;
     border-radius: 5px;
     background-color: orange;
     color: white;

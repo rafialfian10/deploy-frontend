@@ -6,7 +6,7 @@
 
 .desc-container {
     margin: auto;
-    width: 70vw;  
+    width: 70vw;
 }
 
 .desc-container h5 {
@@ -21,14 +21,21 @@ div.info {
     margin-bottom: 40px !important;
 }
 
-
-.accomodation, .transportation, .eat, .durations, .datetrip {
+.accomodation,
+.transportation,
+.eat,
+.durations,
+.datetrip {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.accomodation div, .transportation div, .eat div, .durations div, .datetrip div {
+.accomodation div,
+.transportation div,
+.eat div,
+.durations div,
+.datetrip div {
     width: 100%;
     display: flex;
     align-items: center !important;
@@ -36,7 +43,7 @@ div.info {
 
 .info img {
     width: 20px;
-    height: 20px;    
+    height: 20px;
     margin-right: 10px;
 }
 

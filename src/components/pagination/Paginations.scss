@@ -16,10 +16,10 @@
     background-color: aquamarine !important;
 }
 
-.prev, .next {
+.prev,
+.next {
     width: 70px;
     &:hover {
         cursor: pointer;
     }
 }
-

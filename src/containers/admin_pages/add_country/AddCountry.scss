@@ -14,8 +14,7 @@ h2.add-country-title {
     background-color: rgb(217, 219, 219) !important;
 }
 
-
-.form-dropdown{
+.form-dropdown {
     position: relative;
 }
 
@@ -33,12 +32,14 @@ h2.add-country-title {
     align-items: center;
 }
 
-.day, .night {
+.day,
+.night {
     width: 20%;
     margin-right: 30px;
 }
 
-.label-day, .label-night {
+.label-day,
+.label-night {
     margin: 0px !important;
     margin-right: 50px !important;
 }
@@ -49,7 +50,7 @@ h2.add-country-title {
     box-sizing: border-box;
     justify-content: center;
     margin: auto !important;
-    margin-top:50px !important;
+    margin-top: 50px !important;
     background-color: orange;
     color: white;
     font-weight: bold;
@@ -57,6 +58,6 @@ h2.add-country-title {
 }
 
 .flag-input {
-  height: 43px;
-  border: none !important;
+    height: 43px;
+    border: none !important;
 }

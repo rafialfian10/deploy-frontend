@@ -6,8 +6,9 @@
     border-radius: 5px;
     padding: 30px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209),
-                -1px -1px 1px 1px rgb(209, 209, 209);
+    box-shadow:
+        1px 1px 1px 1px rgb(209, 209, 209),
+        -1px -1px 1px 1px rgb(209, 209, 209);
 }
 
 .content1 {
@@ -33,7 +34,7 @@
 
 .info-payment {
     width: 40%;
-    display: flex;   
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-right: 50px !important;
@@ -60,7 +61,7 @@ p.status-payment-pending {
     text-align: center !important;
     border-radius: 5px;
     background-color: rgb(243, 225, 177);
-    color: orange
+    color: orange;
 }
 
 .info-tour {
@@ -73,7 +74,7 @@ p.status-payment-pending {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-} 
+}
 
 .sub-info-tour h5 {
     font-weight: bold;
@@ -84,7 +85,10 @@ p.status-payment-pending {
     text-align: left;
 }
 
-.sub-info-tour .accomodation, .sub-info-tour .date, .sub-info-tour .duration, .sub-info-tour .transportation {
+.sub-info-tour .accomodation,
+.sub-info-tour .date,
+.sub-info-tour .duration,
+.sub-info-tour .transportation {
     width: 100%;
     margin-bottom: 30px !important;
     display: flex;
@@ -126,9 +130,9 @@ p.status-payment-pending {
 
 .btn-pay button {
     width: 130px;
-    height: 50px ;
+    height: 50px;
     border-radius: 5px;
-    background-color: orange ;
+    background-color: orange;
     color: white;
     font-weight: bold;
     border: none;
